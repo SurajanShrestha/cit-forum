@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 //import utils from '../styles/utils/utils.module.css';
-import uAv1 from '../images/userAvatars/uAv-01.jpg';
+import uAv1 from '../../images/userAvatars/uAv-01.jpg';
 
 function ListItem({ topic, createdDate, posts, author, index }) {
     return (

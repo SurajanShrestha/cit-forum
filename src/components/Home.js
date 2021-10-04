@@ -1,12 +1,16 @@
 import React from 'react';
-import HeaderBar from './HeaderBar';
-import List from './List';
+import Navbar from "./common/navbar";
+import HeaderBar from "./common/HeaderBar";
+import List from './common/List';
 
 function Home() {
     return (
         <div>
-            <HeaderBar />
-            <List />
+            <Navbar />
+            <div className="body-container">
+                <HeaderBar />
+                <List />
+            </div>
         </div>
     );
 }

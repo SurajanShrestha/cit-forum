@@ -1,0 +1,16 @@
+@mixin custom-btn($bgColor, $textColor, $borderColor){
+    background-color: $bgColor;
+    border: 1px solid $borderColor;
+    padding: 0.4rem;
+    color: $textColor;
+    font-size: 0.8rem;
+}
+@mixin custom-btn-hover($hoverBgColor, $hoverTextColor, $hoverBorderColor){
+    background-color: $hoverBgColor;
+    border: 1px solid $hoverBorderColor;
+    padding: 0.4rem;
+    color: $hoverTextColor;
+    font-size: 0.8rem;
+    text-decoration: none;
+    cursor: pointer;
+}

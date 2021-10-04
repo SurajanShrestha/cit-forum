@@ -1,6 +1,7 @@
 @import "./partials/standard";
 @import "./partials/colors";
 @import "./partials/fonts";
+@import "./partials/mixins";
 
 body{
     background-color: $dark;
@@ -12,9 +13,11 @@ p{
 }
 a{
     text-decoration: none;
+    color: white;
 }
 a:hover{
     text-decoration: underline;
+    color: white;
 }
 
 /*Utilities*/
@@ -58,6 +61,13 @@ a:hover{
     font-weight: bold;
 }
 
+.custom-primary-outline-btn{
+    @include custom-btn(transparent, $green, $green);
+}
+.custom-primary-outline-btn:hover{
+    @include custom-btn-hover($green, $black, $green);
+}
+
 /*Header Bar*/
 .headerBar{
     margin-top: 20px;
@@ -69,4 +79,40 @@ a:hover{
     overflow-x: scroll;
 }
 
-  
+/*Navbar*/
+.custom-navbar{
+    background-color: $black;
+    padding: 10px 0px;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    -webkit-box-shadow: 0px 1px 6px 0px $black;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    0px 1px 6px 0px $black;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         0px 1px 6px 0px $black;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+/*Body Container*/
+.body-container{
+    margin-top: 70px;
+}
+
+/*Search Popup*/
+.search-popup{
+    margin: 10px 0px 0px 0px;
+}
+.search-popup-disabled{
+    display: none;
+}
+.search-input{
+    background-color: $dark;
+    border: 1px solid $dark;
+    border-radius: 0px;
+    width: 40vw;
+    padding: 5px;
+    margin-right: 5px;
+    color: white;
+    font-size: $fsm;
+}
+.search-input:focus{
+    outline: 1px solid $green;
+}
