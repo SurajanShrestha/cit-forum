@@ -1,0 +1,72 @@
+@import "./partials/standard";
+@import "./partials/colors";
+@import "./partials/fonts";
+
+body{
+    background-color: $dark;
+    color: white;
+    font-family: $primaryFont;
+}
+p{
+    margin-bottom: 0;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+/*Utilities*/
+.darkBg{
+    background-color: $dark;
+}
+.lightGrayBg{
+    background-color: $lightGray;
+}
+
+.grayText{
+    color: $gray;
+}
+.greenText{
+    color: $green;
+}
+.greenText:hover{
+    color: $hoverGreen;
+}
+
+.f-xs{
+    font-size: $fxs;
+}
+.f-sm{
+    font-size: $fsm;
+}
+.f-md{
+    font-size: $fmd;
+}
+.f-lg{
+    font-size: $flg;
+}
+.f-xl{
+    font-size: $fxl;
+}
+.f-giant{
+    font-size: $fgiant;
+}
+
+.f-bold{
+    font-weight: bold;
+}
+
+/*Header Bar*/
+.headerBar{
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/*List*/
+.listItem{
+    overflow-x: scroll;
+}
+
+  

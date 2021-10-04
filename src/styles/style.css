@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1b232c;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*Utilities*/
+.darkBg {
+  background-color: #1b232c;
+}
+
+.lightGrayBg {
+  background-color: #262e36;
+}
+
+.grayText {
+  color: #c4c4c4;
+}
+
+.greenText {
+  color: #a8cf54;
+}
+
+.greenText:hover {
+  color: #a8cf54;
+}
+
+.f-xs {
+  font-size: 11px;
+}
+
+.f-sm {
+  font-size: 12px;
+}
+
+.f-md {
+  font-size: 14px;
+}
+
+.f-lg {
+  font-size: 16px;
+}
+
+.f-xl {
+  font-size: 18px;
+}
+
+.f-giant {
+  font-size: 24px;
+}
+
+.f-bold {
+  font-weight: bold;
+}
+
+/*Header Bar*/
+.headerBar {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/*List*/
+.listItem {
+  overflow-x: scroll;
+}
+
+/*# sourceMappingURL=style.css.map */
