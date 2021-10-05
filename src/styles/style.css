@@ -76,25 +76,26 @@ a:hover {
 .custom-primary-outline-btn {
   background-color: transparent;
   border: 1px solid #a8cf54;
-  padding: 0.4rem;
   color: #a8cf54;
-  font-size: 0.8rem;
+  padding: 0.4rem;
+  font-size: 0.7rem;
 }
 
 .custom-primary-outline-btn:hover {
   background-color: #a8cf54;
   border: 1px solid #a8cf54;
-  padding: 0.4rem;
   color: #1a1a1a;
-  font-size: 0.8rem;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.clickable:hover {
   cursor: pointer;
 }
 
 /*Header Bar*/
 .headerBar {
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 /*List*/
@@ -109,12 +110,6 @@ a:hover {
   position: fixed;
   width: 100vw;
   top: 0;
-  -webkit-box-shadow: 0px 1px 6px 0px #1a1a1a;
-  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow: 0px 1px 6px 0px #1a1a1a;
-  /* Firefox 3.5 - 3.6 */
-  box-shadow: 0px 1px 6px 0px #1a1a1a;
-  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 /*Body Container*/
@@ -144,6 +139,68 @@ a:hover {
 
 .search-input:focus {
   outline: 1px solid #a8cf54;
+}
+
+/*Category Board*/
+@media screen and (max-width: 768px) {
+  .cat-board {
+    display: none;
+  }
+}
+.cat-board {
+  border: 1px solid #262e36;
+  background-color: #262e36;
+  padding-bottom: 10px;
+}
+.cat-board .heading {
+  background-color: #1a1a1a;
+  padding: 8px 10px;
+  color: #a8cf54;
+  font-size: 14px;
+}
+.cat-board .list-wrapper {
+  list-style-type: none;
+  padding: 0px;
+  margin-bottom: 0px;
+}
+.cat-board .list {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.cat-board .list:hover {
+  background-color: #1b232c;
+}
+.cat-board .active {
+  background-color: #1b232c;
+  color: #c4c4c4;
+}
+.cat-board a:hover {
+  text-decoration: none;
+}
+
+/*Bulletin Board*/
+.bulletin-board {
+  border: 1px solid #262e36;
+  background-color: #262e36;
+  padding-bottom: 10px;
+}
+.bulletin-board .heading {
+  background-color: #1a1a1a;
+  padding: 8px 10px;
+  color: #a8cf54;
+  font-size: 14px;
+}
+.bulletin-board .list-wrapper {
+  list-style-type: none;
+  padding: 0px;
+  margin-bottom: 0px;
+}
+.bulletin-board .list {
+  padding: 10px 10px;
+  font-size: 12px;
+}
+.bulletin-board a:hover {
+  color: #a8cf54;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -67,11 +67,13 @@ a:hover{
 .custom-primary-outline-btn:hover{
     @include custom-btn-hover($green, $black, $green);
 }
+.clickable:hover{
+    cursor: pointer;
+}
 
 /*Header Bar*/
 .headerBar{
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 /*List*/
@@ -86,9 +88,6 @@ a:hover{
     position: fixed;
     width: 100vw;
     top: 0;
-    -webkit-box-shadow: 0px 1px 6px 0px $black;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    0px 1px 6px 0px $black;  /* Firefox 3.5 - 3.6 */
-    box-shadow:         0px 1px 6px 0px $black;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 /*Body Container*/
@@ -115,4 +114,32 @@ a:hover{
 }
 .search-input:focus{
     outline: 1px solid $green;
+}
+
+/*Category Board*/
+@media screen and (max-width: 768px) {
+    .cat-board{
+        display: none;
+    }
+}
+.cat-board{
+    @include board($lightGray, $lightGray, $black, 5px, 10px);
+    .list:hover{
+        background-color: $dark;
+    }
+    .active{
+        background-color: $dark;
+        color: $gray;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+}
+
+/*Bulletin Board*/
+.bulletin-board{
+    @include board($lightGray, $lightGray, $black, 10px, 10px);
+    a:hover{
+        color: $green;
+    }
 }

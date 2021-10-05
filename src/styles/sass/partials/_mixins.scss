@@ -1,16 +1,35 @@
 @mixin custom-btn($bgColor, $textColor, $borderColor){
     background-color: $bgColor;
     border: 1px solid $borderColor;
-    padding: 0.4rem;
     color: $textColor;
-    font-size: 0.8rem;
+    padding: 0.4rem;
+    font-size: 0.7rem;
 }
 @mixin custom-btn-hover($hoverBgColor, $hoverTextColor, $hoverBorderColor){
     background-color: $hoverBgColor;
     border: 1px solid $hoverBorderColor;
-    padding: 0.4rem;
     color: $hoverTextColor;
-    font-size: 0.8rem;
     text-decoration: none;
     cursor: pointer;
+}
+
+@mixin board($borderColor, $bgColor, $headingBgColor, $listPaddingTop, $listPaddingBottom) {
+    border: 1px solid $borderColor;
+    background-color: $bgColor;
+    padding-bottom: 10px;
+    .heading{
+        background-color: $headingBgColor;
+        padding: 8px 10px;
+        color: $green;
+        font-size: $fmd;
+    }
+    .list-wrapper{
+        list-style-type: none;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+    .list{
+        padding: $listPaddingTop $listPaddingBottom;
+        font-size: $fsm;
+    }
 }

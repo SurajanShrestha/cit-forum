@@ -9,10 +9,10 @@ function Navbar(){
         <div className="custom-navbar">
             <Container>
                 <Row>
-                    <Col xs={3}>
+                    <Col xs={2}>
                         <p>Title</p>
                     </Col>
-                    <Col xs={9} className="text-end">
+                    <Col xs={10} className="text-end">
                         <a href="#" className="f-md mx-2 greenText" onClick={()=>setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></a>
                         <Link to="/" className="f-sm mx-2">Log In/Sign Up</Link>
                         <Link to="/" className="custom-primary-outline-btn mx-2">Start a Topic</Link>

@@ -35,7 +35,7 @@ function List() {
         }
     ]
     return (
-        <Container>
+        <>
             <Row className="mb-3">
                 <Col className="f-md f-bold" xs={6}>Topic</Col>
                 <Col className="f-md f-bold" xs={2}>Posts</Col>
@@ -44,7 +44,7 @@ function List() {
             {data.map((item, index)=>{
                 return <ListItem topic={item.topic} createdDate={item.createdDate} posts={item.posts} author={item.author} key={index} index={++index} />
             })}
-        </Container>
+        </>
     );
 }
 
