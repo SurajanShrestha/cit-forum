@@ -74,6 +74,10 @@ a:hover{
 /*Header Bar*/
 .headerBar{
     margin-bottom: 20px;
+    padding: 10px 0px;
+    a{
+        color: $green;
+    }
 }
 
 /*List*/
@@ -135,6 +139,7 @@ a:hover{
 /*Body Container*/
 .body-container{
     margin-top: 70px;
+    padding: 0px 20px;
 }
 
 /*Search Popup*/
@@ -220,5 +225,80 @@ a:hover{
     .active{
         background-color: $lightGray;
         color: $green;
+    }
+}
+
+/*Discussion Board*/
+.discussion{
+    border: 1px solid $lightGray;
+    padding: 10px 0px;
+}
+
+/*Discussion Post*/
+.post{
+    padding: 15px 0px;
+    display: flex;
+    justify-content: start;
+    border-bottom: 1px solid $lightGray;
+    .userAvatar{
+        padding-right: 10px;
+        img{
+            width: 40px;
+        }
+    }
+    .postContent{
+        .userDetails{
+            padding-bottom: 10px;
+            a{
+                color: $green;
+            }
+            .userName{
+                font-size: $fmd;
+                color: $green;
+            }
+            .date{
+                color: $gray;
+                display: flex;
+                align-items: center;
+                i{
+                    padding-right: 5px;
+                }
+            }
+        }
+        .userAnswer{
+            font-size: $fsm;
+            background-color: $lightGray;
+            color: $gray;
+            padding: 10px;
+            line-height: 25px;
+        }
+        .postActions{
+            display: flex;
+            justify-content: start;
+            padding: 10px 0px;
+            .action{
+                margin-right: 10px;
+                .view-replies{
+                    padding: 5px;
+                }
+                .view-replies:hover{
+                    background-color: $lightGray;
+                    cursor: pointer;
+                }
+                i{
+                    padding: 5px;
+                }
+                i:hover{
+                    background-color: $lightGray;
+                    cursor: pointer;
+                }
+                .like:hover{
+                    color: red;
+                }
+                .reply:hover{
+                    color: lawngreen;
+                }
+            }
+        }
     }
 }

@@ -5,3 +5,4 @@ export { default as BulletinBoard } from './common/bulletinBoard';
 export { default as CategoryBoard } from './common/categoryBoard';
 export { default as List } from './common/list';
 export { default as Pagination } from './common/pagination';
+export { default as DiscussionBoard } from './common/discussionBoard';

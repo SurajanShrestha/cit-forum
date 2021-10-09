@@ -4,13 +4,13 @@ import { Footer } from "../../components";
 
 function Layout({ children }) {
     return (
-        <div>
+        <>
             <Navbar />
-            <div className="body-container">
+            <main className="body-container">
                 {children}
-            </div>
+            </main>
             <Footer />
-        </div>
+        </>
     );
 }
 

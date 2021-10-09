@@ -1,20 +1,33 @@
 import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-function HeaderBar() {
+function HeaderBar({ title, categoryType, totalForums, totalPosts }) {
     return (
         <Row className="headerBar lightGrayBg">
-            <Col xs={6}>
-                <p className="f-giant">Latest Topics</p>
-                <small className="grayText">All Categories</small>
+            <Col xs={ !totalForums && !totalPosts ? 12 : 9 }>
+                { title ? <p className="f-xl">{title}</p> : null }
+                { categoryType ? <Link to="/"><small className="greenText">{categoryType}</small></Link> : null }
             </Col>
-            <Col xs={6} className="d-flex justify-content-end">
+            <Col xs={3} className="d-flex justify-content-end">
                 <div className="ms-3 d-flex flex-column justify-content-center">
-                    <p>23,000</p>
-                    <small className="grayText">Forums</small>
+                    {
+                        totalForums ?
+                        <>
+                            <p>{totalForums}</p>
+                            <small className="grayText">Forums</small>
+                        </> :
+                        null
+                    }
                 </div>
                 <div className="ms-3 d-flex flex-column justify-content-center">
-                    <p>982,890</p>
-                    <small className="grayText">Posts</small>
+                    {
+                        totalPosts ?
+                        <>
+                            <p>{totalPosts}</p>
+                            <small className="grayText">Posts</small>
+                        </> :
+                        null
+                    }
                 </div>
             </Col>
         </Row>

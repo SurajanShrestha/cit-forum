@@ -10,13 +10,13 @@ import { Pagination } from '../../components';
 function Home() {
     return (
         <Layout>
-            <Container className="px-3">
+            <Container>
                 <Row>
                     <Col lg={3}>
                         <CategoryBoard/>
                     </Col>
                     <Col lg={6}>
-                        <HeaderBar />
+                        <HeaderBar title="Latest Topics" categoryType="All Category" totalForums="209087" totalPosts="406" />
                         <List />
                         <Pagination />
                     </Col>

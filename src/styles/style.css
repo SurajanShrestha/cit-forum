@@ -96,6 +96,10 @@ a:hover {
 /*Header Bar*/
 .headerBar {
   margin-bottom: 20px;
+  padding: 10px 0px;
+}
+.headerBar a {
+  color: #a8cf54;
 }
 
 /*List*/
@@ -151,6 +155,7 @@ a:hover {
 /*Body Container*/
 .body-container {
   margin-top: 70px;
+  padding: 0px 20px;
 }
 
 /*Search Popup*/
@@ -274,6 +279,79 @@ a:hover {
 .pagination .active {
   background-color: #262e36;
   color: #a8cf54;
+}
+
+/*Discussion Board*/
+.discussion {
+  border: 1px solid #262e36;
+  padding: 10px 0px;
+}
+
+/*Discussion Post*/
+.post {
+  padding: 15px 0px;
+  display: flex;
+  justify-content: start;
+  border-bottom: 1px solid #262e36;
+}
+.post .userAvatar {
+  padding-right: 10px;
+}
+.post .userAvatar img {
+  width: 40px;
+}
+.post .postContent .userDetails {
+  padding-bottom: 10px;
+}
+.post .postContent .userDetails a {
+  color: #a8cf54;
+}
+.post .postContent .userDetails .userName {
+  font-size: 14px;
+  color: #a8cf54;
+}
+.post .postContent .userDetails .date {
+  color: #c4c4c4;
+  display: flex;
+  align-items: center;
+}
+.post .postContent .userDetails .date i {
+  padding-right: 5px;
+}
+.post .postContent .userAnswer {
+  font-size: 12px;
+  background-color: #262e36;
+  color: #c4c4c4;
+  padding: 10px;
+  line-height: 25px;
+}
+.post .postContent .postActions {
+  display: flex;
+  justify-content: start;
+  padding: 10px 0px;
+}
+.post .postContent .postActions .action {
+  margin-right: 10px;
+}
+.post .postContent .postActions .action .view-replies {
+  padding: 5px;
+}
+.post .postContent .postActions .action .view-replies:hover {
+  background-color: #262e36;
+  cursor: pointer;
+}
+.post .postContent .postActions .action i {
+  padding: 5px;
+}
+.post .postContent .postActions .action i:hover {
+  background-color: #262e36;
+  cursor: pointer;
+}
+.post .postContent .postActions .action .like:hover {
+  color: red;
+}
+.post .postContent .postActions .action .reply:hover {
+  color: lawngreen;
 }
 
 /*# sourceMappingURL=style.css.map */
