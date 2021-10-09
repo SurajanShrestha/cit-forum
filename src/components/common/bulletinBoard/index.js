@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 function BulletinBoard({ heading }){
     return (
         <div class="bulletin-board">

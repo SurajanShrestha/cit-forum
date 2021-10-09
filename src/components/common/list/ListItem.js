@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 //import utils from '../styles/utils/utils.module.css';
-import uAv1 from '../../images/userAvatars/uAv-01.jpg';
+//import uAv1 from '../../../../public/images/userAvatars/uAv-01.jpg';
 
 function ListItem({ topic, createdDate, posts, author, index }) {
     return (
@@ -17,7 +17,7 @@ function ListItem({ topic, createdDate, posts, author, index }) {
             </Col>
             <Col className="f-sm d-flex align-items-start" xs={2}>{posts}</Col>
             <Col className="d-flex align-items-start" xs={4}>
-                <Link to="/user"><img src={uAv1} alt="User Avatar" width={30} /></Link>
+                <Link to="/user"><img src={process.env.PUBLIC_URL+"/images/userAvatars/uAv-01.jpg"} alt="User Avatar" width={30} /></Link>
                 <Link to="/user" className="greenText f-sm ms-2">{author}</Link>
             </Col>
         </Row>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/Home';
-import Topic from './components/Topic';
+import Home from './views/home';
+import Topic from './views/topic';
 
 function Error(){
   return <h4 className="text-center">404 Error!!! Page Not Found 😵.</h4>

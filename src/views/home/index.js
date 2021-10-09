@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Layout from './Layout';
-import CategoryBoard from './common/categoryBoard';
-import HeaderBar from './common/HeaderBar';
-import List from './common/List';
-import BulletinBoard from './common/bulletinBoard';
+import Layout from '../layout';
+import { CategoryBoard } from '../../components';
+import { HeaderBar } from '../../components';
+import { List } from '../../components';
+import { BulletinBoard } from '../../components';
+import { Pagination } from '../../components';
 
 function Home() {
     return (
@@ -17,6 +18,7 @@ function Home() {
                     <Col lg={6}>
                         <HeaderBar />
                         <List />
+                        <Pagination />
                     </Col>
                     <Col lg={3}>
                         <BulletinBoard heading="Trending" />

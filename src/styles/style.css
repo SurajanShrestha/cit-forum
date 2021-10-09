@@ -112,6 +112,42 @@ a:hover {
   top: 0;
 }
 
+/*Footer*/
+.custom-footer {
+  background-color: #262e36;
+  margin-top: 20px;
+  position: relative;
+  bottom: 0px;
+  padding: 20px 0px 10px 0px;
+}
+.custom-footer .footer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.custom-footer .footer-content .description {
+  font-size: 12px;
+}
+.custom-footer .footer-content .description .author {
+  color: #a8cf54;
+}
+.custom-footer .footer-content .social-icons {
+  padding: 5px 0px;
+}
+.custom-footer .footer-content .social-icons i {
+  padding: 5px 10px;
+}
+.custom-footer .footer-content .social-icons .github:hover i {
+  color: #1a1a1a;
+}
+.custom-footer .footer-content .social-icons .facebook:hover i {
+  color: #3b5998;
+}
+.custom-footer .footer-content .social-icons .twitter:hover i {
+  color: #1d9bf0;
+}
+
 /*Body Container*/
 .body-container {
   margin-top: 70px;
@@ -200,6 +236,43 @@ a:hover {
   font-size: 12px;
 }
 .bulletin-board a:hover {
+  color: #a8cf54;
+}
+
+/*Pagination*/
+.pagination {
+  margin: 20px 0px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination .action-btn {
+  border: 1px solid #a8cf54;
+  padding: 0px 5px;
+}
+.pagination .action-btn:hover {
+  background-color: #a8cf54;
+  color: #1a1a1a;
+}
+.pagination .page-label {
+  padding: 0px 5px;
+}
+.pagination .page-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0px 5px;
+}
+.pagination .page-number {
+  display: inline-block;
+  padding: 0px 10px;
+  margin: 0px 2px;
+}
+.pagination .page-number:hover {
+  background-color: #262e36;
+}
+.pagination .active {
+  background-color: #262e36;
   color: #a8cf54;
 }
 

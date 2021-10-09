@@ -90,6 +90,48 @@ a:hover{
     top: 0;
 }
 
+/*Footer*/
+.custom-footer{
+    background-color: $lightGray;
+    margin-top: 20px;
+    position: relative;
+    bottom: 0px;
+    padding: 20px 0px 10px 0px;
+    .footer-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .description{
+            font-size: $fsm;
+            .author{
+                color: $green;
+            }
+        }
+        .social-icons{
+            padding: 5px 0px;
+            i{
+                padding: 5px 10px;
+            }
+            .github:hover{
+                i{
+                    color: $black;
+                }
+            }
+            .facebook:hover{
+                i{
+                    color: #3b5998;
+                }
+            }
+            .twitter:hover{
+                i{
+                    color: #1d9bf0;
+                }
+            }
+        }
+    }
+}
+
 /*Body Container*/
 .body-container{
     margin-top: 70px;
@@ -140,6 +182,43 @@ a:hover{
 .bulletin-board{
     @include board($lightGray, $lightGray, $black, 10px, 10px);
     a:hover{
+        color: $green;
+    }
+}
+
+/*Pagination*/
+.pagination{
+    margin: 20px 0px;
+    font-size: $fsm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .action-btn{
+        border: 1px solid $green;
+        padding: 0px 5px;
+    }
+    .action-btn:hover{
+        background-color: $green;
+        color: $black;
+    }
+    .page-label{
+        padding: 0px 5px;
+    }
+    .page-list{
+        list-style-type: none;
+        padding: 0;
+        margin: 0px 5px;
+    }
+    .page-number{
+        display: inline-block;
+        padding: 0px 10px;
+        margin: 0px 2px;
+    }
+    .page-number:hover{
+        background-color: $lightGray;
+    }
+    .active{
+        background-color: $lightGray;
         color: $green;
     }
 }

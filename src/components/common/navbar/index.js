@@ -6,11 +6,11 @@ function Navbar(){
     const [openSearch, setOpenSearch]=useState(false);
 
     return (
-        <div className="custom-navbar">
+        <header className="custom-navbar">
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <p>Title</p>
+                        <p>Cit Forums</p>
                     </Col>
                     <Col xs={10} className="text-end">
                         <a href="#" className="f-md mx-2 greenText" onClick={()=>setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></a>
@@ -25,7 +25,7 @@ function Navbar(){
                     </div>
                 </Row>
             </Container>
-        </div>
+        </header>
     );
 }
 
