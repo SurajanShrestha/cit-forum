@@ -14,7 +14,7 @@ function Navbar(){
                     </Col>
                     <Col xs={10} className="text-end">
                         <span href="#" className="f-md mx-2 greenText clickable" onClick={()=>setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></span>
-                        <Link to="/" className="f-sm mx-2">Log In/Sign Up</Link>
+                        <Link to="/login" className="f-sm mx-2">Log In</Link>
                         <Link to="/" className="custom-primary-outline-btn mx-2">Start a Topic</Link>
                     </Col>
                     <div className={ openSearch ? "search-popup p-3 d-flex flex-column justify-content-center align-items-center" : "search-popup-disabled" }>

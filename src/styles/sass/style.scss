@@ -311,3 +311,51 @@ a:hover{
         }
     }
 }
+
+/*Login & Register*/
+.single-form{
+    background-color: $lightGray;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .form-heading{
+        font-size: $fmd;
+        padding-bottom: 20px;
+        text-transform: uppercase;
+    }
+    form{
+        width: 100%;
+    }
+    .field-container{
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+        width: 100%;
+        label{
+            font-size: $fmd;
+            color: $gray;
+            padding-bottom: 5px;
+        }
+        input{
+            @extend .search-input;
+            width: 100%;
+        }
+    }
+    .btn-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 10px;
+    }
+    .note{
+        font-size: $fsm;
+        color: $gray;
+        text-align: center;
+        padding-top: 20px;
+        a{
+            color: $green;
+        }
+    }
+}
