@@ -12,15 +12,15 @@ function Home() {
         <Layout>
             <Container>
                 <Row>
-                    <Col lg={3}>
+                    <Col lg={{ span: 3, order: '1' }} xs={{ span: 12, order: '2' }}>
                         <CategoryBoard/>
                     </Col>
-                    <Col lg={6}>
+                    <Col lg={{ span: 6, order: '2' }} xs={{ span: 12, order: '1' }}>
                         <HeaderBar title="Latest Topics" categoryType="All Category" totalForums="209087" totalPosts="406" />
                         <List />
                         <Pagination />
                     </Col>
-                    <Col lg={3}>
+                    <Col lg={{ span: 3, order: '3' }} xs={{ span: 12, order: '3' }}>
                         <BulletinBoard heading="Trending" />
                     </Col>
                 </Row>

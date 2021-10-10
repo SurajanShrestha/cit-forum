@@ -89,7 +89,12 @@ a:hover {
   cursor: pointer;
 }
 
-.clickable:hover {
+.clickable, .post .postContent .postActions .action i, .post .postContent .postActions .action .view-replies {
+  padding: 5px;
+}
+
+.clickable:hover, .post .postContent .postActions .action i:hover, .post .postContent .postActions .action .view-replies:hover {
+  background-color: #262e36;
   cursor: pointer;
 }
 
@@ -154,8 +159,7 @@ a:hover {
 
 /*Body Container*/
 .body-container {
-  margin-top: 70px;
-  padding: 0px 20px;
+  margin-top: 80px;
 }
 
 /*Search Popup*/
@@ -183,15 +187,16 @@ a:hover {
 }
 
 /*Category Board*/
-@media screen and (max-width: 768px) {
-  .cat-board {
-    display: none;
-  }
-}
+/*@media screen and (max-width: 768px) {
+    .cat-board{
+        display: none;
+    }
+}*/
 .cat-board {
   border: 1px solid #262e36;
   background-color: #262e36;
   padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 .cat-board .heading {
   background-color: #1a1a1a;
@@ -224,6 +229,7 @@ a:hover {
   border: 1px solid #262e36;
   background-color: #262e36;
   padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 .bulletin-board .heading {
   background-color: #1a1a1a;
@@ -325,6 +331,20 @@ a:hover {
   padding: 10px;
   line-height: 25px;
 }
+.post .postContent .userAnswer .replyTo {
+  background-color: #1b232c;
+  color: #a8cf54;
+  padding: 5px;
+  margin-right: 3px;
+}
+.post .postContent .userAnswer .replyTo::before {
+  font-family: FontAwesome;
+  content: "\f1fa";
+  padding-right: 3px;
+}
+.post .postContent .userAnswer a {
+  color: #a8cf54;
+}
 .post .postContent .postActions {
   display: flex;
   justify-content: start;
@@ -332,20 +352,6 @@ a:hover {
 }
 .post .postContent .postActions .action {
   margin-right: 10px;
-}
-.post .postContent .postActions .action .view-replies {
-  padding: 5px;
-}
-.post .postContent .postActions .action .view-replies:hover {
-  background-color: #262e36;
-  cursor: pointer;
-}
-.post .postContent .postActions .action i {
-  padding: 5px;
-}
-.post .postContent .postActions .action i:hover {
-  background-color: #262e36;
-  cursor: pointer;
 }
 .post .postContent .postActions .action .like:hover {
   color: red;

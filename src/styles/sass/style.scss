@@ -67,7 +67,11 @@ a:hover{
 .custom-primary-outline-btn:hover{
     @include custom-btn-hover($green, $black, $green);
 }
+.clickable{
+    padding: 5px;
+}
 .clickable:hover{
+    background-color: $lightGray;
     cursor: pointer;
 }
 
@@ -138,8 +142,7 @@ a:hover{
 
 /*Body Container*/
 .body-container{
-    margin-top: 70px;
-    padding: 0px 20px;
+    margin-top: 80px;
 }
 
 /*Search Popup*/
@@ -164,11 +167,11 @@ a:hover{
 }
 
 /*Category Board*/
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
     .cat-board{
         display: none;
     }
-}
+}*/
 .cat-board{
     @include board($lightGray, $lightGray, $black, 5px, 10px);
     .list:hover{
@@ -271,6 +274,20 @@ a:hover{
             color: $gray;
             padding: 10px;
             line-height: 25px;
+            .replyTo{
+                background-color: $dark;
+                color: $green;
+                padding: 5px;
+                margin-right: 3px;
+            }
+            .replyTo::before{
+                font-family: FontAwesome;
+                content: '\f1fa';
+                padding-right: 3px;
+            }
+            a{
+                color: $green;
+            }
         }
         .postActions{
             display: flex;
@@ -279,18 +296,10 @@ a:hover{
             .action{
                 margin-right: 10px;
                 .view-replies{
-                    padding: 5px;
-                }
-                .view-replies:hover{
-                    background-color: $lightGray;
-                    cursor: pointer;
+                    @extend .clickable;
                 }
                 i{
-                    padding: 5px;
-                }
-                i:hover{
-                    background-color: $lightGray;
-                    cursor: pointer;
+                    @extend .clickable;
                 }
                 .like:hover{
                     color: red;

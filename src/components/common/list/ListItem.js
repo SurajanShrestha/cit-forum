@@ -6,21 +6,23 @@ import { Row, Col } from 'react-bootstrap';
 
 function ListItem({ topic, createdDate, posts, author, index }) {
     return (
-        /*Changing the background color of each ListItem based on if the ListItem's index is even or not*/
-        <Row className={ (index%2===0) ? `py-1 mb-2` : `lightGrayBg py-1 mb-2` }>
-            <Col xs={6}>
-                <Link to="/topic" className="greenText f-sm">{topic}</Link>
-                <div>
-                    <i className="f-sm grayText fa fa-calendar-check-o" aria-hidden="true"></i>
-                    <small className="f-xs grayText">&emsp;{createdDate}</small>
-                </div>
-            </Col>
-            <Col className="f-sm d-flex align-items-start" xs={2}>{posts}</Col>
-            <Col className="d-flex align-items-start" xs={4}>
-                <Link to="/user"><img src={process.env.PUBLIC_URL+"/images/userAvatars/uAv-01.jpg"} alt="User Avatar" width={30} /></Link>
-                <Link to="/user" className="greenText f-sm ms-2">{author}</Link>
-            </Col>
-        </Row>
+        <div className="px-3">
+            {/*Changing the background color of each ListItem based on if the ListItem's index is even or not*/}
+            <Row className={ (index%2===0) ? `py-1 mb-2` : `lightGrayBg py-1 mb-2` }>
+                <Col xs={6}>
+                    <Link to="/topic" className="greenText f-sm">{topic}</Link>
+                    <div>
+                        <i className="f-sm grayText fa fa-calendar-check-o" aria-hidden="true"></i>
+                        <small className="f-xs grayText">&emsp;{createdDate}</small>
+                    </div>
+                </Col>
+                <Col className="f-sm d-flex align-items-start" xs={2}>{posts}</Col>
+                <Col className="d-flex align-items-start" xs={4}>
+                    <Link to="/user"><img src={process.env.PUBLIC_URL+"/images/userAvatars/uAv-01.jpg"} alt="User Avatar" width={30} /></Link>
+                    <Link to="/user" className="greenText f-sm ms-2">{author}</Link>
+                </Col>
+            </Row>
+        </div>
     );
 }
 
