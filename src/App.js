@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './views/home';
-import Topic from './views/topic';
 import Login from './views/login';
 import Register from './views/register';
+import Home from './views/home';
+import Topic from './views/topic';
+import User from './views/user';
+import UserAccount from './views/userAccount';
 
 function Error(){
   return <h4 className="text-center">404 Error!!! Page Not Found 😵.</h4>
@@ -25,6 +27,12 @@ function App() {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/user">
+            <User />
+          </Route>
+          <Route path="/userAccount">
+            <UserAccount />
           </Route>
           <Route>
             <Error />

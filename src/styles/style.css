@@ -94,7 +94,7 @@ a:hover {
 }
 
 .clickable:hover, .post .postContent .postActions .action i:hover, .post .postContent .postActions .action .view-replies:hover {
-  background-color: #262e36;
+  background-color: #2f3842;
   cursor: pointer;
 }
 
@@ -405,6 +405,31 @@ a:hover {
 }
 .single-form .note a {
   color: #a8cf54;
+}
+
+/*User Account*/
+.change-avatar {
+  position: relative;
+}
+.change-avatar .overlay {
+  position: absolute;
+  background-color: #a8cf54;
+  color: #1b232c;
+  padding: 5px;
+  bottom: 0px;
+  right: 0px;
+  display: none;
+  font-size: 14px;
+}
+
+.change-avatar:hover {
+  cursor: pointer;
+}
+.change-avatar:hover img {
+  opacity: 0.5;
+}
+.change-avatar:hover .overlay {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */

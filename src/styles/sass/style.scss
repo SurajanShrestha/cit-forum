@@ -71,7 +71,7 @@ a:hover{
     padding: 5px;
 }
 .clickable:hover{
-    background-color: $lightGray;
+    background-color: $darkGray;
     cursor: pointer;
 }
 
@@ -357,5 +357,29 @@ a:hover{
         a{
             color: $green;
         }
+    }
+}
+
+/*User Account*/
+.change-avatar{
+    position: relative;
+    .overlay{
+        position: absolute;        
+        background-color: $green;
+        color: $dark;
+        padding: 5px;
+        bottom: 0px;
+        right: 0px;
+        display: none;
+        font-size: $fmd;
+    }
+}
+.change-avatar:hover{
+    cursor: pointer;
+    img{
+        opacity: 0.5;
+    }
+    .overlay{
+        display: block;
     }
 }
