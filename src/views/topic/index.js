@@ -5,6 +5,20 @@ import { BulletinBoard } from '../../components';
 import { DiscussionBoard } from '../../components';
 
 function Topic() {
+    const data=[
+        {
+            topic: "Predict my MMR Mega-Thread! skdnksd skd sd"
+        },
+        {
+            topic: "Fees Discount must be given and it should be a significant amount"
+        },
+        {
+            topic: "Canteen must be improved. There's cockroaches everywhere"
+        },
+        {
+            topic: "Courses must be renewed. And practicals must be held"
+        }
+    ];
     return (
         <Layout>
             <Container>
@@ -14,7 +28,7 @@ function Topic() {
                         <DiscussionBoard />
                     </Col>
                     <Col lg={4}>
-                        <BulletinBoard heading="Trending" />
+                        <BulletinBoard heading="Trending" data={data} />
                     </Col>
                 </Row>
             </Container>

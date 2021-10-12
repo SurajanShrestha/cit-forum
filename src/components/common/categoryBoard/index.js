@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 function CategoryBoard(){
+    /*
+        Here, we fetch data i.e. all categories from our API
+    */
     return (
         <div class="cat-board">
             <p className="heading">Browse Categories</p>

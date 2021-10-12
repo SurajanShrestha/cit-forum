@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function HeaderBar({ userName, userEmail, userAvatar, avatarWidth, editable, title, categoryType, totalForums, totalPosts }) {
+function HeaderBar({ userName, userEmail, userAvatar, avatarWidth, editable, title, categoryType, totalTopics, totalPosts }) {
     return (
         <div className="headerBar lightGrayBg px-3">
             <Row>
@@ -34,19 +34,19 @@ function HeaderBar({ userName, userEmail, userAvatar, avatarWidth, editable, tit
                 }
                 {
                     title ?
-                    <Col xs={ !totalForums && !totalPosts ? 12 : 9 }>
+                    <Col xs={ !totalTopics && !totalPosts ? 12 : 9 }>
                         <p className="f-xl">{title}</p>
-                        { categoryType ? <Link to="/"><small className="greenText">{categoryType}</small></Link> : null }
+                        { categoryType ? <Link to="/categoryTopics"><small className="greenText">{categoryType}</small></Link> : null }
                     </Col> :
                     null
                 }
                 <Col xs={3} className="d-flex justify-content-end">
                     <div className="ms-3 d-flex flex-column justify-content-center">
                         {
-                            totalForums ?
+                            totalTopics ?
                             <>
-                                <p>{totalForums}</p>
-                                <small className="grayText">Forums</small>
+                                <p>{totalTopics}</p>
+                                <small className="grayText">Topics</small>
                             </> :
                             null
                         }

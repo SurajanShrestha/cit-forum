@@ -21,7 +21,7 @@ function Navbar(){
                         <small className="grayText pb-2">Search Desired Topics</small>
                         <form className="d-flex">
                             <input type="text" className="search-input" placeholder="Search Topics..." />
-                            <button className="custom-primary-outline-btn">Search</button>
+                            <Link to="/searchResults" className="custom-primary-outline-btn">Search</Link>
                         </form>
                     </div>
                 </Row>
