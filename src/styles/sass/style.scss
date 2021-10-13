@@ -241,7 +241,7 @@ a:hover{
 .post{
     padding: 15px 0px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     border-bottom: 1px solid $lightGray;
     .userAvatar{
         padding-right: 10px;
@@ -291,7 +291,7 @@ a:hover{
         }
         .postActions{
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             padding: 10px 0px;
             .action{
                 margin-right: 10px;
@@ -338,9 +338,16 @@ a:hover{
             color: $gray;
             padding-bottom: 5px;
         }
-        input{
+        input, textarea, select{
             @extend .search-input;
             width: 100%;
+        }
+        select{
+            color: $gray;
+            padding: 8px 5px;
+        }
+        option{
+            color: $gray;
         }
     }
     .btn-container{

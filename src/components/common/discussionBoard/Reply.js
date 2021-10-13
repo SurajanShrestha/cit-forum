@@ -5,7 +5,7 @@ function Reply({ userName, userAvatar, postedDate, answer, totalLikes, replyTo }
         <div className="post">
             <div className="userAvatar">
                 <Link to="/">
-                    <img src={userAvatar} />
+                    <img src={userAvatar} alt="User Avatar" />
                 </Link>
             </div>
             <div className="postContent">

@@ -11,10 +11,10 @@ function HeaderBar({ userName, userEmail, userAvatar, avatarWidth, editable, tit
                         {
                             editable ?
                             <div className="change-avatar">
-                                <img src={userAvatar} width={avatarWidth} />
+                                <img src={userAvatar} width={avatarWidth} alt="User Avatar" />
                                 <span className="overlay" title="Edit Avatar"><i class="fa fa-camera" aria-hidden="true"></i></span>
                             </div> :
-                            <img src={userAvatar} width={avatarWidth} />
+                            <img src={userAvatar} width={avatarWidth} alt="User Avatar" />
                         }
                         <div className="d-flex flex-column px-2">
                             { 

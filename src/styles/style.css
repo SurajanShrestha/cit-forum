@@ -171,7 +171,7 @@ a:hover {
   display: none;
 }
 
-.search-input, .single-form .field-container input {
+.search-input, .single-form .field-container input, .single-form .field-container textarea, .single-form .field-container select {
   background-color: #1b232c;
   border: 1px solid #1b232c;
   border-radius: 0px;
@@ -182,7 +182,7 @@ a:hover {
   font-size: 12px;
 }
 
-.search-input:focus, .single-form .field-container input:focus {
+.search-input:focus, .single-form .field-container input:focus, .single-form .field-container textarea:focus, .single-form .field-container select:focus {
   outline: 1px solid #a8cf54;
 }
 
@@ -297,7 +297,7 @@ a:hover {
 .post {
   padding: 15px 0px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   border-bottom: 1px solid #262e36;
 }
 .post .userAvatar {
@@ -347,7 +347,7 @@ a:hover {
 }
 .post .postContent .postActions {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 10px 0px;
 }
 .post .postContent .postActions .action {
@@ -388,8 +388,15 @@ a:hover {
   color: #c4c4c4;
   padding-bottom: 5px;
 }
-.single-form .field-container input {
+.single-form .field-container input, .single-form .field-container textarea, .single-form .field-container select {
   width: 100%;
+}
+.single-form .field-container select {
+  color: #c4c4c4;
+  padding: 8px 5px;
+}
+.single-form .field-container option {
+  color: #c4c4c4;
 }
 .single-form .btn-container {
   display: flex;

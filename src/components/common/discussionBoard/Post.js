@@ -9,7 +9,7 @@ function Post({ userName, userAvatar, postedDate, answer, totalLikes, totalRepli
         <div className="post">
             <div className="userAvatar">
                 <Link to="/">
-                    <img src={userAvatar} />
+                    <img src={userAvatar} alt="User Avatar" />
                 </Link>
             </div>
             <div className="postContent">

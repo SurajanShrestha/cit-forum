@@ -8,6 +8,7 @@ import User from './views/user';
 import UserAccount from './views/userAccount';
 import SearchResults from './views/searchResults';
 import CategoryTopics from './views/categoryTopics';
+import CreateTopic from './views/createTopic';
 
 function Error(){
   return <h4 className="text-center">404 Error!!! Page Not Found 😵.</h4>
@@ -41,6 +42,9 @@ function App() {
           </Route>
           <Route path="/categoryTopics">
             <CategoryTopics />
+          </Route>
+          <Route path="/createTopic">
+            <CreateTopic />
           </Route>
           <Route>
             <Error />
