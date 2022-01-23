@@ -9,9 +9,15 @@ function List({ data, deletable }) {
                 <Col className="f-md f-bold" xs={2}>Posts</Col>
                 <Col className="f-md f-bold" xs={4}>Author</Col>
             </Row>
-            {data.map((item, index)=>{
+            {data ?
+                data.map((item, index) => {
+                    return <ListItem topic={item.title} createdDate={item.createdAt.slice(0, 10)} posts={item.Posts.length} author={item.User.name} key={index} index={++index} deletable={deletable} />
+                }) :
+                null
+            }
+            {/* {data.map((item, index)=>{
                 return <ListItem topic={item.topic} createdDate={item.createdDate} posts={item.posts} author={item.author} key={index} index={++index} deletable={deletable} />
-            })}
+            })} */}
         </div>
     );
 }
