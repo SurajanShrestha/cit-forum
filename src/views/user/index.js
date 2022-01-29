@@ -1,44 +1,47 @@
+import { useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
+import { useParams } from 'react-router-dom';
 import Layout from "../layout";
 import { HeaderBar } from '../../components';
+import { useQuery } from 'react-query';
+import { http } from '../../services/httpHelper';
+import { failureToast } from "../../components/common/Toast";
 import { List } from '../../components';
-import { Pagination } from '../../components';
+// import { Pagination } from '../../components';
 
 function User() {
-    const data=[
-        {
-            topic: "Predict my MMR Mega-Thread! skdnksd skd sd",
-            createdDate: "2 Days ago",
-            posts: "140",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Fees Discount must be given and it should be a significant amount",
-            createdDate: "2020-07-12",
-            posts: "800",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Canteen must be improved. There's cockroaches everywhere",
-            createdDate: "2020-07-10",
-            posts: "20",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Courses must be renewed. And practicals must be held",
-            createdDate: "2021-04-12",
-            posts: "180",
-            author: "Jon Snow"
+    const { slug } = useParams();
+
+    const { data: userData, error: errorUserData } = useQuery('user', () => {
+        return http().get(`/users/${slug}`);
+    });
+
+    useEffect(() => {
+        if (errorUserData) {
+            failureToast(errorUserData?.response?.data?.message || "Error");
         }
-    ];
+    }, [errorUserData]);
+
     return (
         <Layout>
             <Container>
                 <Row>
                     <Col lg={{ span: 8, offset: 2 }}>
-                        <HeaderBar userName="Jon Snow" userAvatar={ process.env.PUBLIC_URL+"/images/userAvatars/uAv-01.jpg" } avatarWidth={90} totalPosts="406" />
-                        <List data={data} />
-                        <Pagination />
+                        {userData?.data ?
+                            <>
+                                <HeaderBar
+                                    userName={userData?.data?.name}
+                                    userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}
+                                    avatarWidth={90}
+                                    totalPosts={userData?.data?.Posts.length}
+                                />
+                                <List data={userData?.data?.Topics} />
+                            </> :
+                            null
+                        }
+                        {/* <HeaderBar userName="Jon Snow" userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-01.jpg"} avatarWidth={90} totalPosts="406" /> */}
+                        {/* <List /> */}
+                        {/* <Pagination /> */}
                     </Col>
                 </Row>
             </Container>

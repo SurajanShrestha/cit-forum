@@ -1,44 +1,48 @@
+import { useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
+import { useParams } from 'react-router-dom';
 import Layout from "../layout";
+import { useQuery } from 'react-query';
+import { http } from '../../services/httpHelper';
+import { failureToast } from "../../components/common/Toast";
 import { HeaderBar } from '../../components';
 import { List } from '../../components';
-import { Pagination } from '../../components';
 
 function UserAccount() {
-    const data=[
-        {
-            topic: "Predict my MMR Mega-Thread! skdnksd skd sd",
-            createdDate: "2 Days ago",
-            posts: "140",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Fees Discount must be given and it should be a significant amount",
-            createdDate: "2020-07-12",
-            posts: "800",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Canteen must be improved. There's cockroaches everywhere",
-            createdDate: "2020-07-10",
-            posts: "20",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Courses must be renewed. And practicals must be held",
-            createdDate: "2021-04-12",
-            posts: "180",
-            author: "Jon Snow"
+    const { slug } = useParams();
+
+    const { data: myProfileData, error: errorMyProfileData } = useQuery('myProfile', () => {
+        return http().get(`/users/${slug}`);
+    });
+
+    useEffect(() => {
+        if (errorMyProfileData) {
+            failureToast(errorMyProfileData?.response?.data?.message || "Error");
         }
-    ];
+    }, [errorMyProfileData]);
+
     return (
         <Layout>
             <Container>
                 <Row>
                     <Col lg={{ span: 8, offset: 2 }}>
-                        <HeaderBar userName="Jon Snow" userEmail="jon.snow@got.com" userAvatar={ process.env.PUBLIC_URL+"/images/userAvatars/uAv-02.jpg" } avatarWidth={90} editable={true} totalPosts="16" />
-                        <List data={data} deletable={true} />
-                        <Pagination />
+                        {myProfileData?.data ?
+                            <>
+                                <HeaderBar
+                                    userName={myProfileData?.data?.name}
+                                    userEmail={myProfileData?.data?.email}
+                                    userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}
+                                    avatarWidth={90}
+                                    editable={true}
+                                    totalPosts={myProfileData?.data?.Posts.length}
+                                />
+                                <List data={myProfileData?.data?.Topics} deletable={true} />
+                            </> :
+                            null
+                        }
+                        {/* <HeaderBar userName="Jon Snow" userEmail="jon.snow@got.com" userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"} avatarWidth={90} editable={true} totalPosts="16" /> */}
+                        {/* <List data={data} deletable={true} /> */}
+                        {/* <Pagination /> */}
                     </Col>
                 </Row>
             </Container>

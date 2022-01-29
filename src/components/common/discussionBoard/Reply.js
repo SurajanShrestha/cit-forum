@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 
-function Reply({ userName, userAvatar, postedDate, answer, totalLikes, replyTo }) {
+function Reply({ userName, userId, userAvatar, postedDate, answer, totalLikes, replyTo }) {
     return (
         <div className="post">
             <div className="userAvatar">
-                <Link to="/">
+                <Link to={`/user/${userId}`}>
                     <img src={userAvatar} alt="User Avatar" />
                 </Link>
             </div>
             <div className="postContent">
                 <div className="userDetails">
-                    <Link to="/">
+                    <Link to={`/user/${userId}`}>
                         <p className="userName">{userName}</p>
                     </Link>
                     <div className="date">
@@ -33,10 +33,10 @@ function Reply({ userName, userAvatar, postedDate, answer, totalLikes, replyTo }
                         <i className="fa fa-heart-o like" aria-hidden="true" title="Like"></i>
                         { totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null }
                     </div>
-                    <div className="action">
+                    {/* <div className="action">
                         <i className="fa fa-commenting-o reply" aria-hidden="true" title="Reply"></i>
                         { totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

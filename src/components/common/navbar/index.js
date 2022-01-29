@@ -32,7 +32,7 @@ function Navbar() {
                         <span href="#" className="f-md mx-2 greenText clickable" onClick={() => setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></span>
                         {Object.keys(userData).length ?
                             <>
-                                <Link to="#" className="f-sm mx-2">Welcome, {userData.name}</Link>
+                                <Link to={`/userAccount/${userData.id}`} className="f-sm mx-2">Welcome, {userData.name}</Link>
                                 <Link to="#" className="f-sm mx-2" onClick={handleLogout}>Log Out</Link>
                                 <Link to="/createTopic" className="custom-primary-outline-btn mx-2">Start a Topic</Link>
                             </> :

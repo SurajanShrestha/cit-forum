@@ -71,7 +71,7 @@ function Home() {
                         }
                     </Col>
                     <Col lg={{ span: 9, order: '2' }} xs={{ span: 12, order: '1' }}>
-                        <HeaderBar title="Latest Topics" categoryType="All Category" totalTopics="" totalPosts="" />
+                        <HeaderBar title="Latest Topics" categoryType="All Category" noPosts={true} />
                         {/* <List data={data} /> */}
                         {isSuccessTopicsData ?
                             <List data={topicsData.data} /> :

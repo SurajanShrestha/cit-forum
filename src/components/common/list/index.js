@@ -11,7 +11,7 @@ function List({ data, deletable }) {
             </Row>
             {data ?
                 data.map((item, index) => {
-                    return <ListItem topic={item.title} createdDate={item.createdAt.slice(0, 10)} posts={item.Posts.length} author={item.User.name} key={index} index={++index} deletable={deletable} />
+                    return <ListItem id={item.id} topic={item.title} createdDate={item.createdAt.slice(0, 10)} posts={item.Posts.length} author={item?.User?.name} authorId={item?.User?.id} key={index} index={++index} deletable={deletable} />
                 }) :
                 null
             }
