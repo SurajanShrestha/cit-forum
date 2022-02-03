@@ -64,7 +64,7 @@ function CreateTopic() {
                             validationSchema={createTopicValidationSchema}
                             onSubmit={handleSubmit}
                         >
-                            {({ dirty }) => {
+                            {() => {
                                 return (
                                     <Form>
                                         <Input name="title" label="Title" type="text" placeholder="Enter Topic Title" />
@@ -84,7 +84,7 @@ function CreateTopic() {
                                             null
                                         }
                                         <div className="btn-container">
-                                            <Button type="submit" loading={isFetchingCategoriesData || isCreatingTopic} disabled={!dirty}>Start Discussion</Button>
+                                            <Button type="submit" loading={isFetchingCategoriesData || isCreatingTopic}>Start Discussion</Button>
                                         </div>
                                     </Form>
                                 )

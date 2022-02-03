@@ -13,7 +13,7 @@ const Select = ({ name, label, required = true, ...props }) => {
             </label>
             <select {...field} {...props} />
             {meta.touched && meta.error ? (
-                <div className="field-err-message">{meta.error}</div>
+                <div className="f-sm greenText fst-italic">*{meta.error}</div>
             ) : null}
         </div>
     );

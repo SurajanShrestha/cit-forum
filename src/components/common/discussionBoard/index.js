@@ -3,6 +3,7 @@ import Post from './Post';
 function DiscussionBoard({ postsData }) {
     return (
         <div className="discussion px-3">
+            {console.log(postsData)}
             <div>
                 {postsData && postsData.length ?
                     postsData.map((post, index) => {

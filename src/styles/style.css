@@ -89,6 +89,26 @@ a:hover {
   cursor: pointer;
 }
 
+.custom-secondary-outline-btn {
+  background-color: transparent;
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+  padding: 0.4rem;
+  font-size: 0.7rem;
+}
+
+.custom-secondary-outline-btn:hover {
+  background-color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  color: #1a1a1a;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.post .postContent {
+  width: 100%;
+}
+
 .clickable, .post .postContent .postActions .action i, .post .postContent .postActions .action .view-replies {
   padding: 5px;
 }

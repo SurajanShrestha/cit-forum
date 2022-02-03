@@ -1,22 +1,74 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from 'react-query';
+import { useQueryClient, useQuery, useMutation } from 'react-query';
+import { Formik, Form } from 'formik';
 import { http } from '../../../services/httpHelper';
-import { failureToast } from '../Toast';
+import { successToast, failureToast } from '../Toast';
 import Reply from './Reply';
+import { getUser } from '../../../storage';
+import Button from '../Button';
+import Input from '../Input';
+import { createReplyValidationSchema } from '../../../validations/createReply.validation';
+
+const initialValues = {
+    content: "",
+};
 
 function Post({ id, userName, userAvatar, postedDate, answer, totalLikes, totalReplies }) {
+    const formikBag = useRef();
+    const queryClient = useQueryClient();
     const [openReplies, setOpenReplies] = useState(false);
+    const [showReplyField, setShowReplyField] = useState(false);
 
-    const { data: replyData, error: errorReplyData } = useQuery('reply', () => {
+    const { data: replyData, error: errorReplyData } = useQuery(['reply', { id }], () => {
         return http().get(`/replies/byPostId?PostId=${id}`);
     });
 
-    useEffect(()=>{
-        if(errorReplyData){
+    const { mutate: createReply, error: replyError, isLoading: isReplying, isSuccess: isSuccessReply } = useMutation((payload) => {
+        return http().post('/replies', payload);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('reply');
+        }
+    }
+    );
+
+    useEffect(() => {
+        if (errorReplyData) {
             failureToast(errorReplyData?.response?.data?.message || "Error");
         }
     }, [errorReplyData]);
+
+    useEffect(() => {
+        if (replyError) {
+            failureToast("Error creating reply");
+        }
+        if (isSuccessReply) {
+            successToast("Successfully Replied");
+            formikBag.current?.resetForm();
+            setShowReplyField(false);
+        }
+    }, [replyError, isSuccessReply]);
+
+    const handleCreateReply = () => {
+        if (getUser()) {
+            setShowReplyField(true);
+        } else {
+            failureToast('You must log in to write a Reply');
+            setShowReplyField(false);
+        }
+    };
+
+    // Replying to a Post, not replying to a reply. So, we will not have a replyToId
+    const handleReplySubmit = (values) => {
+        if (getUser()) {
+            createReply({
+                ...values,
+                UserId: getUser().id,
+                PostId: id,
+            });
+        }
+    };
 
     return (
         <div className="post">
@@ -50,11 +102,35 @@ function Post({ id, userName, userAvatar, postedDate, answer, totalLikes, totalR
                         <i className="fa fa-heart-o like" aria-hidden="true" title="Like"></i>
                         {totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null}
                     </div>
-                    {/* <div className="action">
-                        <i className="fa fa-commenting-o reply" aria-hidden="true" title="Reply"></i>
-                        { totalReplies ? <small className="f-xs grayText">{totalReplies}</small> : null }
-                    </div> */}
+                    {!showReplyField &&
+                        <div className='text-end mb-2 action'>
+                            <Button type="button" onClick={handleCreateReply}>Reply</Button>
+                        </div>
+                    }
                 </div>
+                {showReplyField &&
+                    <div className="single-form mb-3">
+                        <Formik
+                            initialValues={initialValues}
+                            validationSchema={createReplyValidationSchema}
+                            onSubmit={handleReplySubmit}
+                            enableReinitialize
+                            innerRef={formikBag}
+                        >
+                            {() => {
+                                return (
+                                    <Form>
+                                        <Input name="content" label="Write your Reply" type="textarea" rows={5} placeholder="Your reply..." />
+                                        <div className="btn-container" style={{ justifyContent: 'right', paddingTop: 5 }}>
+                                            <Button type="submit" loading={isReplying}>Reply</Button>
+                                            <Button className="ms-3" type="button" variant="secondary" onClick={() => setShowReplyField(false)} >Cancel</Button>
+                                        </div>
+                                    </Form>
+                                )
+                            }}
+                        </Formik>
+                    </div>
+                }
                 {
                     openReplies ?
                         replyData?.data && replyData?.data.length ?
