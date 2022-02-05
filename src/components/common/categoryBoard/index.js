@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 
 function CategoryBoard({ data }) {
-    /*
-        Here, we fetch data i.e. all categories from our API
-    */
     return (
         <div class="cat-board">
             <p className="heading">Browse Categories</p>
@@ -14,8 +11,8 @@ function CategoryBoard({ data }) {
                 {data ?
                     data.map((cat, index) => {
                         return (
-                            <Link to="#" key={index}>
-                                <li className="list">{cat.name}</li>
+                            <Link to={`/categoryTopics/${cat?.id}`} key={index}>
+                                <li className="list">{cat?.name}</li>
                             </Link>
                         )
                     }) :

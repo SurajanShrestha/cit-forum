@@ -36,6 +36,7 @@ function Topic() {
         return http().post('/posts', payload);
     }, {
         onSuccess: () => {
+            queryClient.invalidateQueries('topic');
             queryClient.invalidateQueries('posts');
         }
     }
@@ -61,20 +62,20 @@ function Topic() {
         }
     }, [postError, isSuccessPost]);
 
-    const data = [
-        {
-            topic: "Predict my MMR Mega-Thread! skdnksd skd sd"
-        },
-        {
-            topic: "Fees Discount must be given and it should be a significant amount"
-        },
-        {
-            topic: "Canteen must be improved. There's cockroaches everywhere"
-        },
-        {
-            topic: "Courses must be renewed. And practicals must be held"
-        }
-    ];
+    // const data = [
+    //     {
+    //         topic: "Predict my MMR Mega-Thread! skdnksd skd sd"
+    //     },
+    //     {
+    //         topic: "Fees Discount must be given and it should be a significant amount"
+    //     },
+    //     {
+    //         topic: "Canteen must be improved. There's cockroaches everywhere"
+    //     },
+    //     {
+    //         topic: "Courses must be renewed. And practicals must be held"
+    //     }
+    // ];
 
     const handleCreatePost = () => {
         if (getUser()) {
@@ -141,9 +142,9 @@ function Topic() {
                                 null
                         }
                     </Col>
-                    <Col lg={4}>
+                    {/* <Col lg={4}>
                         <BulletinBoard heading="Trending" data={data} />
-                    </Col>
+                    </Col> */}
                 </Row>
             </Container>
         </Layout>

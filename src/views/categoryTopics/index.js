@@ -1,48 +1,52 @@
+import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useQuery } from 'react-query';
+import { http } from '../../services/httpHelper';
 import Layout from '../layout';
 import { HeaderBar } from '../../components';
 import { List } from '../../components';
 import { CategoryBoard } from '../../components';
-import { Pagination } from '../../components';
 
 function CategoryTopics() {
-    const data=[
-        {
-            topic: "Predict my MMR Mega-Thread! skdnksd skd sd",
-            createdDate: "2 Days ago",
-            posts: "140",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Fees Discount must be given and it should be a significant amount",
-            createdDate: "2020-07-12",
-            posts: "800",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Canteen must be improved. There's cockroaches everywhere",
-            createdDate: "2020-07-10",
-            posts: "20",
-            author: "Jon Snow"
-        },
-        {
-            topic: "Courses must be renewed. And practicals must be held",
-            createdDate: "2021-04-12",
-            posts: "180",
-            author: "Jon Snow"
-        }
-    ];
+    const { slug } = useParams();
+
+    const { data: allCatData, isFetching: isFetchingAllCatData } = useQuery('allCategories', () => {
+        return http().get('/categories');
+    });
+
+    const { data: singleCatData, isFetching: isFetchingSingleCatData, } = useQuery(['singleCategory', { slug }], () => {
+        return http().get(`/categories/${slug}`);
+    });
+
+    const { data: topicsData, isFetching: isFetchingTopicsData, } = useQuery(['topicsByCategory', { slug }], () => {
+        return http().get(`/topics/byCategoryId?CategoryId=${slug}`)
+    });
+
     return (
         <Layout>
             <Container>
                 <Row>
                     <Col lg={8}>
-                        <HeaderBar title="Topics for Category: 'IT & Telecommunication'" categoryType="IT & Telecommunication" totalTopics={16} />
-                        <List data={data} />
-                        <Pagination />
+                        {isFetchingSingleCatData ?
+                            <p className='f-sm'>Loading...</p> :
+                            singleCatData?.data ?
+                                <HeaderBar title={`Topics for: "${singleCatData?.data?.name}"`} categoryType={singleCatData?.data?.name} totalTopics={singleCatData?.data?.Topics.length} noPosts={true} /> :
+                                null
+                        }
+                        {isFetchingTopicsData ?
+                            <p className='f-sm'>Loading...</p> :
+                            topicsData?.data.length ?
+                                <List data={topicsData?.data} /> :
+                                <p className='f-sm'>No topics for this category</p>
+                        }
                     </Col>
                     <Col lg={4}>
-                        <CategoryBoard/>
+                        {isFetchingAllCatData ?
+                            <p className='f-sm'>Loading...</p> :
+                            allCatData ?
+                                <CategoryBoard data={allCatData?.data} /> :
+                                null
+                        }
                     </Col>
                 </Row>
             </Container>

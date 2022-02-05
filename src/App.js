@@ -52,7 +52,7 @@ function App() {
             <Route path="/searchResults">
               <SearchResults />
             </Route>
-            <Route path="/categoryTopics">
+            <Route path="/categoryTopics/:slug">
               <CategoryTopics />
             </Route>
             <Route path="/createTopic">

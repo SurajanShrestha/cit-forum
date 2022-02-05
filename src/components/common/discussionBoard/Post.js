@@ -29,6 +29,7 @@ function Post({ id, userName, userAvatar, postedDate, answer, totalLikes, totalR
     }, {
         onSuccess: () => {
             queryClient.invalidateQueries('reply');
+            queryClient.invalidateQueries('posts');
         }
     }
     );
@@ -41,7 +42,7 @@ function Post({ id, userName, userAvatar, postedDate, answer, totalLikes, totalR
 
     useEffect(() => {
         if (replyError) {
-            failureToast("Error creating reply");
+            failureToast("Error replying");
         }
         if (isSuccessReply) {
             successToast("Successfully Replied");
@@ -137,6 +138,9 @@ function Post({ id, userName, userAvatar, postedDate, answer, totalLikes, totalR
                             replyData?.data.map((reply, index) => {
                                 return (
                                     <Reply
+                                        id={reply?.id}
+                                        postId={id}
+                                        replyToId={reply?.replyToId}
                                         userName={reply?.User?.name}
                                         userId={reply?.User?.id}
                                         userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}

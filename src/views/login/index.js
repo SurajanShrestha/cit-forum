@@ -31,7 +31,7 @@ function Login() {
         if (isLoginSuccess) {
             successToast("Successfully Logged In");
             setUser(loginData.data?.user);
-            history.replace("/");
+            history.goBack();
         }
         if (loginError) {
             failureToast(loginError?.response?.data?.message || "Error");

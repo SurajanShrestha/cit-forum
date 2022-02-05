@@ -54,19 +54,13 @@ function HeaderBar({ userName, userEmail, userAvatar, avatarWidth, editable, tit
                     <div className="ms-3 d-flex flex-column justify-content-center">
                         {noPosts ?
                             null :
-                            <>
-                                <p>{totalPosts}</p>
-                                <small className="grayText">Posts</small>
-                            </>
-                        }
-                        {/* {
                             totalPosts ?
-                            <>
-                                <p>{totalPosts}</p>
-                                <small className="grayText">Posts</small>
-                            </> :
-                            null
-                        } */}
+                                <>
+                                    <p>{totalPosts}</p>
+                                    <small className="grayText">Posts</small>
+                                </> :
+                                null
+                        }
                     </div>
                 </Col>
             </Row>
