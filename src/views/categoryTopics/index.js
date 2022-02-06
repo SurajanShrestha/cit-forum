@@ -30,7 +30,7 @@ function CategoryTopics() {
                         {isFetchingSingleCatData ?
                             <p className='f-sm'>Loading...</p> :
                             singleCatData?.data ?
-                                <HeaderBar title={`Topics for: "${singleCatData?.data?.name}"`} categoryType={singleCatData?.data?.name} totalTopics={singleCatData?.data?.Topics.length} noPosts={true} /> :
+                                <HeaderBar title={`Topics for: "${singleCatData?.data?.name}"`} categoryId={singleCatData?.data?.id} categoryType={singleCatData?.data?.name} totalTopics={singleCatData?.data?.Topics.length} noPosts={true} /> :
                                 null
                         }
                         {isFetchingTopicsData ?

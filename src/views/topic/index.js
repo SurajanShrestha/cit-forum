@@ -104,7 +104,7 @@ function Topic() {
                         {isLoadingTopicData ?
                             <p className='f-sm grayText'>Loading...</p> :
                             topicData ?
-                                <HeaderBar title={topicData.data?.title} categoryType={topicData.data?.Category?.name} totalPosts={topicData.data?.Posts.length} /> :
+                                <HeaderBar title={topicData.data?.title} categoryId={topicData?.data?.CategoryId} categoryType={topicData.data?.Category?.name} totalPosts={topicData.data?.Posts.length} /> :
                                 null
                         }
                         {!showPostField &&

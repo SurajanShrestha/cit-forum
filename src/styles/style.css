@@ -459,4 +459,17 @@ a:hover {
   display: block;
 }
 
+/* Customizing React-Bootstrap Modal */
+.modal-header button {
+  background-color: #212529;
+  padding: 0px 10px;
+  color: white;
+  box-shadow: none;
+  border: none;
+}
+
+.modal-header button:hover {
+  color: #a8cf54;
+}
+
 /*# sourceMappingURL=style.css.map */

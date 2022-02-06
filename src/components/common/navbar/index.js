@@ -7,6 +7,7 @@ function Navbar() {
     const history = useHistory();
     const [openSearch, setOpenSearch] = useState(false);
     const [userData, setUserData] = useState({});
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         if (getUser()) {
@@ -41,9 +42,10 @@ function Navbar() {
                     </Col>
                     <div className={openSearch ? "search-popup p-3 d-flex flex-column justify-content-center align-items-center" : "search-popup-disabled"}>
                         <small className="grayText pb-2">Search Desired Topics</small>
-                        <form className="d-flex">
-                            <input type="text" className="search-input" placeholder="Search Topics..." />
-                            <Link to="/searchResults" className="custom-primary-outline-btn">Search</Link>
+                        <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
+                            <input type="text" className="search-input" placeholder="Search Topics..." onChange={(e) => setSearchQuery(e.target.value)} />
+                            <Link to={`/searchResults?search=${searchQuery}`} className="custom-primary-outline-btn">Search</Link>
+                            <button type="button" className="ms-1 custom-secondary-outline-btn" onClick={() => setOpenSearch(false)}>Cancel</button>
                         </form>
                     </div>
                 </Row>

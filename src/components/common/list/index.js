@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import ListItem from './ListItem';
 
-function List({ data, deletable }) {
+function List({ data, deletable = false }) {
     return (
         <div>
             <Row className="mb-3 px-3">

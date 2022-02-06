@@ -33,7 +33,8 @@ function User() {
                                     userName={userData?.data?.name}
                                     userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}
                                     avatarWidth={90}
-                                    totalPosts={userData?.data?.Posts.length}
+                                    // totalPosts={userData?.data?.Posts.length}
+                                    totalTopics={userData?.data?.Topics.length}
                                 />
                                 <List data={userData?.data?.Topics} />
                             </> :

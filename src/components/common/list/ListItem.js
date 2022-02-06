@@ -1,20 +1,73 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
-//import utils from '../styles/utils/utils.module.css';
-//import uAv1 from '../../../../public/images/userAvatars/uAv-01.jpg';
+import { useQueryClient, useMutation } from 'react-query';
+import { Row, Col, Spinner } from 'react-bootstrap';
+import { http } from '../../../services/httpHelper';
+import { successToast, failureToast } from '../Toast';
+import Popup from '../Popup';
+import { getUser } from '../../../storage';
 
 function ListItem({ id, topic, createdDate, posts, author, authorId, index, deletable }) {
+    const queryClient = useQueryClient();
+
+    // For Popup
+    const [show, setShow] = useState(false);
+    const [yesDelete, setYesDelete] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleSetYes = () => setYesDelete(true);
+
+    const { mutate: deleteTopic, error: errorDeleteTopic, isLoading: isDeletingTopic, isSuccess: isSuccessDeleteTopic } = useMutation((id) => {
+        return http().delete(`/topics/${id}`);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('myProfile');
+        }
+    }
+    );
+
+    const handleDeleteTopic = () => {
+        if (getUser()) {
+            if (yesDelete) {
+                deleteTopic(id);
+            }
+        } else {
+            failureToast("Please Login first");
+        }
+    };
+
+    useEffect(() => {
+        if (errorDeleteTopic) {
+            failureToast("Error deleting topic");
+        }
+        if (isSuccessDeleteTopic) {
+            successToast("Successfully deleted topic");
+        }
+    }, [errorDeleteTopic, isSuccessDeleteTopic]);
+
+    useEffect(() => {
+        if (yesDelete) {
+            handleDeleteTopic();
+        }
+    }, [yesDelete]);
+
     return (
         <div className="px-3">
-            {/*Changing the background color of each ListItem based on if the ListItem's index is even or not*/}
+            <Popup show={show} handleClose={handleClose} handleSetYes={handleSetYes} heading="Delete Topic" body="Are you sure you want to delete this topic?" />
+            {/* Changing the background color of each ListItem based on if the ListItem's index is even or not */}
             <Row className={(index % 2 === 0) ? `py-1 mb-2` : `lightGrayBg py-1 mb-2`}>
                 <Col xs={6}>
                     <Link to={`/topic/${id}`} className="greenText f-sm">{topic}</Link>
                     <div className="d-flex align-items-center">
                         <i className="f-sm grayText fa fa-calendar-check-o" aria-hidden="true"></i>
                         <small className="f-xs grayText">&emsp;{createdDate}</small>
-                        {deletable ? <i className="f-md grayText fa fa-trash-o ms-2 clickable" aria-hidden="true" title="Delete Topic"></i> : null}
+                        {deletable ?
+                            isDeletingTopic ?
+                                <Spinner animation="border" size="sm" /> :
+                                <i onClick={handleShow} className="f-md grayText fa fa-trash-o ms-2 clickable" aria-hidden="true" title="Delete Topic"></i> :
+                            null
+                        }
                     </div>
                 </Col>
                 <Col className="f-sm d-flex align-items-start" xs={2}>{posts}</Col>

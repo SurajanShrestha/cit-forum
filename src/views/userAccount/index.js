@@ -1,19 +1,27 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import Layout from "../layout";
 import { useQuery } from 'react-query';
 import { http } from '../../services/httpHelper';
 import { failureToast } from "../../components/common/Toast";
 import { HeaderBar } from '../../components';
 import { List } from '../../components';
+import { getUser } from '../../storage';
 
 function UserAccount() {
     const { slug } = useParams();
+    const history = useHistory();
 
     const { data: myProfileData, error: errorMyProfileData } = useQuery('myProfile', () => {
         return http().get(`/users/${slug}`);
     });
+
+    useEffect(() => {
+        if (!getUser()) {
+            history.replace("/");
+        }
+    }, []);
 
     useEffect(() => {
         if (errorMyProfileData) {
@@ -29,6 +37,7 @@ function UserAccount() {
                         {myProfileData?.data ?
                             <>
                                 <HeaderBar
+                                    userId={myProfileData?.data?.id}
                                     userName={myProfileData?.data?.name}
                                     userEmail={myProfileData?.data?.email}
                                     userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}
