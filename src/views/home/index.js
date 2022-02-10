@@ -7,7 +7,7 @@ import { failureToast } from "../../components/common/Toast";
 import { CategoryBoard } from '../../components';
 import { HeaderBar } from '../../components';
 import { List } from '../../components';
-// import { BulletinBoard } from '../../components';
+import { BulletinBoard } from '../../components';
 // import { Pagination } from '../../components';
 
 function Home() {
@@ -19,6 +19,10 @@ function Home() {
         return http().get('/topics');
     });
 
+    const { data: latestTopicsData, error: errorLatestTopicsData, isFetching: isFetchingLatestTopicsData, isSuccess: isSuccessLatestTopicsData } = useQuery('latestTopics', () => {
+        return http().get('/topics/latest?limit=8');
+    });
+
     useEffect(() => {
         if (errorCategoriesData) {
             failureToast(errorCategoriesData?.response?.data?.message || "Error");
@@ -26,30 +30,42 @@ function Home() {
         if (errorTopicsData) {
             failureToast(errorTopicsData?.response?.data?.message || "Error");
         }
-    }, [errorCategoriesData, errorTopicsData]);
+        if (errorLatestTopicsData) {
+            failureToast(errorLatestTopicsData?.response?.data?.message || "Error");
+        }
+    }, [errorCategoriesData, errorTopicsData, errorLatestTopicsData]);
 
     return (
         <Layout>
             <Container>
                 <Row>
                     <Col lg={{ span: 3, order: '1' }} xs={{ span: 12, order: '2' }}>
-                        {isSuccessCategoriesData ?
-                            <CategoryBoard data={categoriesData?.data} /> :
-                            <CategoryBoard data={null} />
+                        {isFetchingCategoriesData ?
+                            <p className="f-sm grayText">Loading...</p> :
+                            isSuccessCategoriesData ?
+                                <CategoryBoard data={categoriesData?.data} /> :
+                                <CategoryBoard data={null} />
                         }
                     </Col>
-                    <Col lg={{ span: 9, order: '2' }} xs={{ span: 12, order: '1' }}>
+                    <Col lg={{ span: 6, order: '2' }} xs={{ span: 12, order: '1' }}>
                         <HeaderBar title="Latest Topics" categoryType="All Category" noPosts={true} />
                         {/* <List data={data} /> */}
-                        {isSuccessTopicsData ?
-                            <List data={topicsData.data} /> :
-                            <List data={null} />
+                        {isFetchingTopicsData ?
+                            <p className="f-sm grayText">Loading...</p> :
+                            isSuccessTopicsData ?
+                                <List data={topicsData.data} /> :
+                                <List data={null} />
                         }
                         {/* <Pagination /> */}
                     </Col>
-                    {/* <Col lg={{ span: 3, order: '3' }} xs={{ span: 12, order: '3' }}>
-                        <BulletinBoard heading="Trending" data={data} />
-                    </Col> */}
+                    <Col lg={{ span: 3, order: '3' }} xs={{ span: 12, order: '3' }}>
+                        {isFetchingLatestTopicsData ?
+                            <p className="f-sm grayText">Loading...</p> :
+                            isSuccessLatestTopicsData ?
+                                <BulletinBoard heading="Latest Topics" data={latestTopicsData?.data} /> :
+                                <BulletinBoard heading="Latest Topics" data={null} />
+                        }
+                    </Col>
                 </Row>
             </Container>
         </Layout>
