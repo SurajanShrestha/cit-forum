@@ -145,6 +145,7 @@ a:hover {
 .custom-footer {
   background-color: #262e36;
   margin-top: 20px;
+  height: 12vh;
   position: relative;
   bottom: 0px;
   padding: 20px 0px 10px 0px;

@@ -13,7 +13,7 @@ const initialValues = {
     content: "",
 };
 
-function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate, answer, totalLikes }) {
+function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate, answer, /* totalLikes */ }) {
     const formikBag = useRef();
     const queryClient = useQueryClient();
     const [showReplyField, setShowReplyField] = useState(false);
@@ -104,10 +104,10 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
                         </article>
                 }
                 <div className="postActions">
-                    <div className="action">
+                    {/* <div className="action">
                         <i className="fa fa-heart-o like" aria-hidden="true" title="Like"></i>
                         {totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null}
-                    </div>
+                    </div> */}
                     {!showReplyField &&
                         <div className='text-end mb-2 action'>
                             <Button type="button" onClick={handleCreateReplyTo}>Reply</Button>

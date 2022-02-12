@@ -13,7 +13,7 @@ function DiscussionBoard({ postsData }) {
                                 userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-01.jpg"}
                                 postedDate={post?.createdAt.slice(0, 10)}
                                 answer={post?.content}
-                                totalLikes={post?.likes}
+                                // totalLikes={post?.likes}
                                 totalReplies={post?.Replies.length}
                                 key={index}
                             />

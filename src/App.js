@@ -11,6 +11,8 @@ import UserAccount from './views/userAccount';
 import SearchResults from './views/searchResults';
 import CategoryTopics from './views/categoryTopics';
 import CreateTopic from './views/createTopic';
+import AdminPanel from './views/admin';
+import AdminLogin from './views/admin/login';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -57,6 +59,12 @@ function App() {
             </Route>
             <Route path="/createTopic">
               <CreateTopic />
+            </Route>
+            <Route path="/admin" exact>
+              <AdminPanel />
+            </Route>
+            <Route path="/admin/login">
+              <AdminLogin />
             </Route>
             <Route>
               <Error />
