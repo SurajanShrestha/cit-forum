@@ -473,4 +473,65 @@ a:hover {
   color: #a8cf54;
 }
 
+/*Dashboard*/
+.dashboard-box {
+  height: 80px;
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #262e36;
+  border: 1px solid #a8cf54;
+  color: #a8cf54;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.dashboard-box:hover {
+  background-color: #1a1a1a;
+  height: 160px;
+}
+
+.dashboard-box .heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-box i {
+  padding-right: 6px;
+  border-right: 1px solid #a8cf54;
+  margin-right: 6px;
+  font-size: 24px;
+}
+
+.dashboard-box p {
+  line-height: 1px;
+}
+
+.dashboard-box .menu {
+  display: none;
+  margin-top: 14px;
+}
+
+.dashboard-box:hover .menu {
+  display: block;
+}
+
+.dashboard-box:hover .menu li {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.dashboard-box:hover .menu ul {
+  list-style-type: circle;
+}
+
+.dashboard-box:hover .menu li a:hover {
+  color: #a8cf54 !important;
+  text-decoration: none;
+}
+
 /*# sourceMappingURL=style.css.map */

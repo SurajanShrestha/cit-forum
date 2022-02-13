@@ -39,7 +39,7 @@ function AdminLogin() {
     }, [isLoginSuccess, loginError]);
 
     return (
-        <Layout forAdminPanel={true} noNavbar={true}>
+        <Layout forAdminPanel={true} noNavbar={true} noFooter={true}>
             <Container>
                 <Row className="px-3">
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">

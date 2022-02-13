@@ -2,7 +2,7 @@ import React from 'react';
 import { Navbar } from "../../components";
 import { Footer } from "../../components";
 
-function Layout({ children, forAdminPanel = false, noNavbar = false }) {
+function Layout({ children, forAdminPanel = false, noNavbar = false, noFooter=false }) {
     return (
         <>
             {noNavbar ?
@@ -12,7 +12,10 @@ function Layout({ children, forAdminPanel = false, noNavbar = false }) {
             <main className="body-container">
                 {children}
             </main>
-            <Footer />
+            {noFooter ?
+                null :
+                <Footer />
+            }
         </>
     );
 }

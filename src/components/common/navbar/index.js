@@ -27,7 +27,7 @@ function Navbar({ forAdminPanel = false }) {
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <Link to="/"><p>{forAdminPanel ? 'CITE Forums Admin' : 'CITE Forums'}</p></Link>
+                        <Link to="/"><p>{forAdminPanel ? 'CITE Admin' : 'CITE Forums'}</p></Link>
                     </Col>
                     <Col xs={10} className="text-end">
                         <span href="#" className="f-md mx-2 greenText clickable" onClick={() => setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></span>
