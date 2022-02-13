@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useQuery } from 'react-query';
+import { useQueryClient, useQuery, useMutation } from 'react-query';
 import Layout from '../../../layout';
 import { http } from "../../../../services/httpHelper";
 import { failureToast } from "../../../../components/common/Toast";
@@ -11,12 +11,22 @@ import CustomTable from '../../../../components/common/Table';
 
 function AdminViewCategories() {
     const history = useHistory();
+    const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['CategoryId', 'Name', 'Topics', 'Created At'];
+    const tableHeaders = ['CategoryId', 'Name', 'Topics', 'Created At', 'Actions'];
 
     const { data: catData, error: errorCatData, isFetching: isFetchingCatData } = useQuery('categories', () => {
         return http().get('/categories');
     });
+
+    const { mutate: deleteCat, isError: isErrorDeleteCat, isLoading: isDeletingCat, isSuccess: isSuccessDeleteCat } = useMutation((id) => {
+        return http().delete(`/categories/${id}`);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('categories');
+        }
+    }
+    );
 
     useEffect(() => {
         if (errorCatData) {
@@ -49,6 +59,10 @@ function AdminViewCategories() {
                                 tableHeaders={tableHeaders}
                                 tableData={tableData}
                                 isFetchingTableData={isFetchingCatData}
+                                deleteFunc={deleteCat}
+                                isDeleting={isDeletingCat}
+                                isErrorDeleting={isErrorDeleteCat}
+                                isSuccessDeleting={isSuccessDeleteCat}
                             />
                         </div>
                     </Col>

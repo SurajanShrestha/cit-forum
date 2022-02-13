@@ -561,4 +561,11 @@ table tbody tr  {
   background-color: #262e36;
 }
 
+/* Popup */
+.custom-modal .modal-content {
+  border-radius: 0px !important;
+  border: none !important;
+  background-color: transparent !important;
+}
+
 /*# sourceMappingURL=style.css.map */

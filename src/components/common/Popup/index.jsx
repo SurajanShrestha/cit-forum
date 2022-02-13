@@ -3,7 +3,7 @@ import Button from '../Button';
 
 function Popup({ show, handleClose, handleSetYes, heading, body }) {
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} className="custom-modal">
       <Modal.Header closeButton className="bg-dark">
         <Modal.Title>
           <p className='f-md'>{heading}</p>

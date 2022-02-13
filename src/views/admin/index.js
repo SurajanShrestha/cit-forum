@@ -1,15 +1,8 @@
 import { useEffect } from 'react';
 import { useHistory, Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
-// import { useQuery } from 'react-query';
 import Layout from '../layout';
 import { getUser } from "../../storage";
-// import { http } from "../../services/httpHelper";
-// import { failureToast } from "../../components/common/Toast";
-// import { CategoryBoard } from '../../components';
-// import { HeaderBar } from '../../components';
-// import { List } from '../../components';
-// import { BulletinBoard } from '../../components';
 
 function AdminPanel() {
     const history = useHistory();

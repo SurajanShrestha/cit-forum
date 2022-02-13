@@ -4,7 +4,7 @@ import { Container, Row, Col, Table, Spinner } from 'react-bootstrap';
 import { useQueryClient, useQuery, useMutation } from 'react-query';
 import Layout from '../../../layout';
 import { http } from "../../../../services/httpHelper";
-import { successToast, failureToast } from "../../../../components/common/Toast";
+import { failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
 import Button from '../../../../components/common/Button';
 import CustomTable from '../../../../components/common/Table';
@@ -46,14 +46,6 @@ function AdminViewUsers() {
             }))
         }
     }, [errorUsersData, usersData]);
-
-    useEffect(() => {
-        if (isErrorDeleteUser) {
-            failureToast('Error deleting user');
-        } if (isSuccessDeleteUser) {
-            successToast('Successfully deleted user');
-        }
-    }, [isSuccessDeleteUser, isErrorDeleteUser]);
 
     return (
         <Layout forAdminPanel={true} noFooter={true}>

@@ -1,11 +1,17 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Table, Spinner } from 'react-bootstrap';
-import { useQueryClient } from 'react-query';
 import { successToast, failureToast } from "../Toast";
+import Popup from '../Popup';
 
 function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTableData, deleteFunc, isDeleting, isErrorDeleting, isSuccessDeleting }) {
-    const history = useHistory();
+    // For Popup
+    const [show, setShow] = useState(false);
+    const [yesDelete, setYesDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState("");
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleSetYes = () => setYesDelete(true);
 
     useEffect(() => {
         if (isErrorDeleting) {
@@ -15,9 +21,19 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
         }
     }, [isSuccessDeleting, isErrorDeleting]);
 
+    useEffect(() => {
+        if (yesDelete && deleteId !== "") {
+            deleteFunc(deleteId);
+            setYesDelete(false);
+        } else {
+            setDeleteId("");
+        }
+    }, [yesDelete]);
+
     return (
         <>
             <div>
+                <Popup show={show} handleClose={handleClose} handleSetYes={handleSetYes} heading={`Delete ${tableName}`} body={`Are you sure you want to delete this ${tableName}?`} />
                 <Table hover variant="dark" responsive>
                     <thead>
                         <tr>
@@ -38,7 +54,10 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
                                                 <td>
                                                     {isDeleting ?
                                                         <Spinner animation='border' size='sm' /> :
-                                                        <i className="fa fa-trash-o admin-action-icon" aria-hidden="true" title="Delete" onClick={() => deleteFunc(tdata.id)}></i>
+                                                        <i className="fa fa-trash-o admin-action-icon" aria-hidden="true" title="Delete" onClick={() => {
+                                                            setShow(true);
+                                                            setDeleteId(tdata?.id);
+                                                        }}></i>
                                                     }
                                                 </td> :
                                                 null

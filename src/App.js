@@ -17,6 +17,7 @@ import AdminAddUser from './views/admin/users/add';
 import AdminViewUsers from './views/admin/users/view';
 import AdminViewRoles from './views/admin/roles/view';
 import AdminViewCategories from './views/admin/categories/view';
+import AdminAddCategory from './views/admin/categories/add';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -81,6 +82,9 @@ function App() {
             </Route>
             <Route path="/admin/categories/view">
               <AdminViewCategories />
+            </Route>
+            <Route path="/admin/categories/add">
+              <AdminAddCategory />
             </Route>
             <Route>
               <Error />
