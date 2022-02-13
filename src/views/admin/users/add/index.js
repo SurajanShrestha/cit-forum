@@ -79,7 +79,7 @@ function AdminAddUser() {
                                             <Button type="submit" loading={isRegistering} disabled={!dirty}>Create User</Button>
                                         </div>
                                         <p className="note">
-                                            <Link to="/admin/users/view"><i class="fa fa-eye" aria-hidden="true"></i> View Users</Link>
+                                            <Link to="/admin/users/view" className="clickable"><i class="fa fa-eye" aria-hidden="true"></i> View Users</Link>
                                         </p>
                                     </Form>
                                 )

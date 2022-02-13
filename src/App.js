@@ -15,6 +15,8 @@ import AdminPanel from './views/admin';
 import AdminLogin from './views/admin/login';
 import AdminAddUser from './views/admin/users/add';
 import AdminViewUsers from './views/admin/users/view';
+import AdminViewRoles from './views/admin/roles/view';
+import AdminViewCategories from './views/admin/categories/view';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -73,6 +75,12 @@ function App() {
             </Route>
             <Route path="/admin/users/view">
               <AdminViewUsers />
+            </Route>
+            <Route path="/admin/roles/view">
+              <AdminViewRoles />
+            </Route>
+            <Route path="/admin/categories/view">
+              <AdminViewCategories />
             </Route>
             <Route>
               <Error />

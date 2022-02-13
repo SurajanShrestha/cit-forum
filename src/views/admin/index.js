@@ -38,7 +38,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    <i className="fa fa-users" aria-hidden="true"></i>
                                                     <p className="font-md">Users</p>
                                                 </div>
                                                 <div className="menu">
@@ -56,7 +56,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                                    <i className="fa fa-user-secret" aria-hidden="true"></i>
                                                     <p className="font-md dash-title">Roles</p>
                                                 </div>
                                                 <div className="menu">
@@ -71,16 +71,16 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-sitemap" aria-hidden="true"></i>
+                                                    <i className="fa fa-sitemap" aria-hidden="true"></i>
                                                     <p className="font-md dash-title">Categories</p>
                                                 </div>
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/users/add">Add Category</Link>
+                                                            <Link to="/admin/categories/add">Add Category</Link>
                                                         </li>
                                                         <li>
-                                                            <Link to="/admin/users/add">View all Categories</Link>
+                                                            <Link to="/admin/categories/view">View all Categories</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -89,13 +89,13 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-book" aria-hidden="true"></i>
+                                                    <i className="fa fa-book" aria-hidden="true"></i>
                                                     <p className="font-md dash-title">Topics</p>
                                                 </div>
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/users/add">View all Topics</Link>
+                                                            <Link to="/admin/topics/view">View all Topics</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -104,13 +104,13 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                                                    <i className="fa fa-pencil-square" aria-hidden="true"></i>
                                                     <p className="font-md dash-title">Posts</p>
                                                 </div>
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/users/add">View all Posts</Link>
+                                                            <Link to="/admin/posts/add">View all Posts</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -119,13 +119,13 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i class="fa fa-comments" aria-hidden="true"></i>
+                                                    <i className="fa fa-comments" aria-hidden="true"></i>
                                                     <p className="font-md dash-title">Replies</p>
                                                 </div>
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/users/add">View all Replies</Link>
+                                                            <Link to="/admin/replies/add">View all Replies</Link>
                                                         </li>
                                                     </ul>
                                                 </div>

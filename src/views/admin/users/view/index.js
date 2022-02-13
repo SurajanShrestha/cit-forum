@@ -1,26 +1,37 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Container, Row, Col, Table, Spinner } from 'react-bootstrap';
-import { useQuery } from 'react-query';
+import { useQueryClient, useQuery, useMutation } from 'react-query';
 import Layout from '../../../layout';
 import { http } from "../../../../services/httpHelper";
-import { failureToast } from "../../../../components/common/Toast";
+import { successToast, failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
+import Button from '../../../../components/common/Button';
+import CustomTable from '../../../../components/common/Table';
 
 function AdminViewUsers() {
+    const history = useHistory();
+    const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
+    const tableHeaders = ['UserId', 'Name', 'Role', 'Email', 'Age', 'Contact', 'Gender', 'Created At', 'Actions'];
 
     const { data: usersData, error: errorUsersData, isFetching: isFetchingUsersData } = useQuery('users', () => {
         return http().get('/users');
     });
 
+    const { mutate: deleteUser, isError: isErrorDeleteUser, isLoading: isDeletingUser, isSuccess: isSuccessDeleteUser } = useMutation((id) => {
+        return http().delete(`/users/${id}`);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('users');
+        }
+    }
+    );
+
     useEffect(() => {
         if (errorUsersData) {
             failureToast(errorUsersData?.response?.data?.message || "Error");
-        }
-    }, [errorUsersData]);
-
-    useEffect(() => {
-        if (usersData) {
+        } if (usersData) {
             setTableData(usersData?.data.map(d => {
                 return {
                     id: d?.id,
@@ -34,10 +45,15 @@ function AdminViewUsers() {
                 }
             }))
         }
-    }, [usersData]);
+    }, [errorUsersData, usersData]);
 
-    const tableHeaders = ['UserId', 'Name', 'Role', 'Email', 'Age', 'Contact', 'Gender', 'Created At'];
-    // const tableData = [{ name: 'hh', role: 'Admin', age: '18' }, { name: 'hh', role: 'Admin', age: '18' }];
+    useEffect(() => {
+        if (isErrorDeleteUser) {
+            failureToast('Error deleting user');
+        } if (isSuccessDeleteUser) {
+            successToast('Successfully deleted user');
+        }
+    }, [isSuccessDeleteUser, isErrorDeleteUser]);
 
     return (
         <Layout forAdminPanel={true} noFooter={true}>
@@ -45,33 +61,21 @@ function AdminViewUsers() {
                 <Row>
                     <Col lg={{ span: 10, offset: '1' }}>
                         <HeaderBar title="Users List" noPosts={true} />
-                        {/* <Table headers={['Name', 'Role', 'Age']} data={[{name: 'hh', role: 'Admin', age: '18'}, {name: 'hh', role: 'Admin', age: '18'}]} /> */}
-                        <div className="px-3">
-                            <Table hover variant="dark" responsive>
-                                <thead>
-                                    <tr>
-                                        {tableHeaders.map((h, i) => <th key={i}>{h}</th>)}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {isFetchingUsersData ?
-                                        <tr>
-                                            <td colSpan={8} className="text-center"><Spinner animation="border" size="sm" /></td>
-                                        </tr> :
-                                        tableData ?
-                                            tableData.map((td, i) => {
-                                                return (
-                                                    <tr>
-                                                        {Object.keys(td).map((oKey, index) => <td className={oKey==='name' ? "greenText" : ""} key={index}>{td[oKey]}</td>)}
-                                                    </tr>
-                                                );
-                                            }) :
-                                            <td colSpan={8} className="text-center">
-                                                <p className="f-sm">Error loading data.</p>
-                                            </td>
-                                    }
-                                </tbody>
-                            </Table>
+                        <div className='d-flex justify-content-between mb-2'>
+                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <Button type="button" onClick={() => history.push("/admin/users/add")}>Add User</Button>
+                        </div>
+                        <div>
+                            <CustomTable
+                                tableName="User"
+                                tableHeaders={tableHeaders}
+                                tableData={tableData}
+                                isFetchingTableData={isFetchingUsersData}
+                                deleteFunc={deleteUser}
+                                isDeleting={isDeletingUser}
+                                isErrorDeleting={isErrorDeleteUser}
+                                isSuccessDeleting={isSuccessDeleteUser}
+                            />
                         </div>
                     </Col>
                 </Row>
