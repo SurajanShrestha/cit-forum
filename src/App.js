@@ -13,6 +13,8 @@ import CategoryTopics from './views/categoryTopics';
 import CreateTopic from './views/createTopic';
 import AdminPanel from './views/admin';
 import AdminLogin from './views/admin/login';
+import AdminAddUser from './views/admin/users/add';
+import AdminViewUsers from './views/admin/users/view';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,6 +67,12 @@ function App() {
             </Route>
             <Route path="/admin/login">
               <AdminLogin />
+            </Route>
+            <Route path="/admin/users/add">
+              <AdminAddUser />
+            </Route>
+            <Route path="/admin/users/view">
+              <AdminViewUsers />
             </Route>
             <Route>
               <Error />

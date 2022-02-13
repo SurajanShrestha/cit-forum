@@ -486,7 +486,7 @@ a:hover {
   border: 1px solid #a8cf54;
   color: #a8cf54;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: all 0.6s ease;
 }
 
 .dashboard-box:hover {
@@ -532,6 +532,17 @@ a:hover {
 .dashboard-box:hover .menu li a:hover {
   color: #a8cf54 !important;
   text-decoration: none;
+}
+
+/*Table*/
+table thead tr {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+table tbody tr  {
+  font-size: 12px;
+  color: #c4c4c4;
 }
 
 /*# sourceMappingURL=style.css.map */

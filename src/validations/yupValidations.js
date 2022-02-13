@@ -163,17 +163,22 @@ export const DecimalValidation = () => {
 /* Min Max Validations */
 export const AlphabetsMinMaxValidationWithReq = (name, min, max, minMessage, maxMessage) => {
     return Yup
-        .string()
-        .required(name + ' is required')
-        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
-        .min(min, minMessage)
-        .max(max, maxMessage)
-}
-
-export const AlphabetsMinMaxValidationWithoutReq = (name, min, max, minMessage, maxMessage) => {
+      .string()
+      .required(name + ' is required')
+      // With Spaces
+      .matches(/^((?!_)[A-Za-z\s])+$/, 'Only alphabets are allowed for this field ')
+      // Without Spaces
+      // .matches(/^((?!_)[A-Za-z])+$/, 'Only alphabets are allowed for this field ')
+      // Only alphabets but also matched underscore by default
+      // .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+      .min(min, minMessage)
+      .max(max, maxMessage)
+  }
+  
+  export const AlphabetsMinMaxValidationWithoutReq = (name, min, max, minMessage, maxMessage) => {
     return Yup
-        .string()
-        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
-        .min(min, minMessage)
-        .max(max, maxMessage)
-}
+      .string()
+      .matches(/^((?!_)[A-Za-z\s])+$/, 'Only alphabets are allowed for this field ')
+      .min(min, minMessage)
+      .max(max, maxMessage)
+  }

@@ -19,7 +19,11 @@ function Navbar({ forAdminPanel = false }) {
 
     const handleLogout = () => {
         removeUser();
-        history.go(0);
+        if (forAdminPanel) {
+            history.replace("/admin");
+        } else {
+            history.go(0);
+        }
     };
 
     return (
@@ -27,10 +31,22 @@ function Navbar({ forAdminPanel = false }) {
             <Container>
                 <Row>
                     <Col xs={2}>
-                        <Link to="/"><p>{forAdminPanel ? 'CITE Admin' : 'CITE Forums'}</p></Link>
+                        {forAdminPanel ?
+                            <Link to="/admin">
+                                <p>CITE Admin</p>
+                            </Link> :
+                            <Link to="/">
+                                <p>CITE Forums</p>
+                            </Link>
+                        }
                     </Col>
                     <Col xs={10} className="text-end">
-                        <span href="#" className="f-md mx-2 greenText clickable" onClick={() => setOpenSearch(!openSearch)}><i class="fa fa-search" aria-hidden="true"></i></span>
+                        {forAdminPanel ?
+                            null :
+                            <span href="#" className="f-md mx-2 greenText clickable" onClick={() => setOpenSearch(!openSearch)}>
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        }
                         {Object.keys(userData).length ?
                             <>
                                 <Link to={`/userAccount/${userData.id}`} className="f-sm mx-2">Welcome, {userData.name}</Link>
