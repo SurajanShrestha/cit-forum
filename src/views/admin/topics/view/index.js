@@ -9,60 +9,61 @@ import { HeaderBar } from '../../../../components';
 import Button from '../../../../components/common/Button';
 import CustomTable from '../../../../components/common/Table';
 
-function AdminViewCategories() {
+function AdminViewTopics() {
     const history = useHistory();
     const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['Category Id', 'Name', 'Topics', 'Created At', 'Actions'];
+    const tableHeaders = ['Topic Id', 'Topic', 'Posts', 'Created At', 'Author', 'Actions'];
 
-    const { data: catData, error: errorCatData, isFetching: isFetchingCatData } = useQuery('categories', () => {
-        return http().get('/categories');
+    const { data: topData, error: errorTopData, isFetching: isFetchingTopData } = useQuery('topics', () => {
+        return http().get('/topics');
     });
 
-    const { mutate: deleteCat, isError: isErrorDeleteCat, isLoading: isDeletingCat, isSuccess: isSuccessDeleteCat } = useMutation((id) => {
-        return http().delete(`/categories/${id}`);
+    const { mutate: deleteTop, isError: isErrorDeleteTop, isLoading: isDeletingTop, isSuccess: isSuccessDeleteTop } = useMutation((id) => {
+        return http().delete(`/topics/${id}`);
     }, {
         onSuccess: () => {
-            queryClient.invalidateQueries('categories');
+            queryClient.invalidateQueries('topics');
         }
     }
     );
 
     useEffect(() => {
-        if (errorCatData) {
-            failureToast(errorCatData?.response?.data?.message || "Error");
-        } if (catData) {
-            setTableData(catData?.data.map(d => {
+        if (errorTopData) {
+            failureToast(errorTopData?.response?.data?.message || "Error");
+        } if (topData) {
+            setTableData(topData?.data.map(d => {
                 return {
                     id: d?.id,
-                    name: d?.name,
-                    topics: d?.Topics.length,
+                    topic: d?.title,
+                    posts: d?.Posts.length,
                     createdAt: d?.createdAt.slice(0, 10),
+                    author: d?.User.name,
                 }
             }))
         }
-    }, [errorCatData, catData]);
+    }, [errorTopData, topData]);
 
     return (
         <Layout forAdminPanel={true} noFooter={true}>
             <Container>
                 <Row>
                     <Col lg={{ span: 10, offset: '1' }}>
-                        <HeaderBar title="Categories List" noPosts={true} />
+                        <HeaderBar title="Topics List" noPosts={true} />
                         <div className='d-flex justify-content-between mb-2'>
                             <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
-                            <Button type="button" onClick={() => history.push("/admin/categories/add")}>Add Category</Button>
+                            <Button type="button" onClick={() => history.push("/admin/topics/add")}>Add Topic</Button>
                         </div>
                         <div>
                             <CustomTable
-                                tableName="Category"
+                                tableName="Topic"
                                 tableHeaders={tableHeaders}
                                 tableData={tableData}
-                                isFetchingTableData={isFetchingCatData}
-                                deleteFunc={deleteCat}
-                                isDeleting={isDeletingCat}
-                                isErrorDeleting={isErrorDeleteCat}
-                                isSuccessDeleting={isSuccessDeleteCat}
+                                isFetchingTableData={isFetchingTopData}
+                                deleteFunc={deleteTop}
+                                isDeleting={isDeletingTop}
+                                isErrorDeleting={isErrorDeleteTop}
+                                isSuccessDeleting={isSuccessDeleteTop}
                             />
                         </div>
                     </Col>
@@ -72,4 +73,4 @@ function AdminViewCategories() {
     );
 }
 
-export default AdminViewCategories;
+export default AdminViewTopics;

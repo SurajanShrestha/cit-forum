@@ -37,7 +37,7 @@ function AdminAddUser() {
 
     useEffect(() => {
         if (isRegisterSuccess) {
-            successToast("Successfully created user. Please make sure to inform the user to change password.");
+            successToast("Successfully created user.");
             formikBag.current?.resetForm();
         }
         if (registerError) {

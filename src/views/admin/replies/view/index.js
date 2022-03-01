@@ -6,63 +6,65 @@ import Layout from '../../../layout';
 import { http } from "../../../../services/httpHelper";
 import { failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
-import Button from '../../../../components/common/Button';
+// import Button from '../../../../components/common/Button';
 import CustomTable from '../../../../components/common/Table';
 
-function AdminViewCategories() {
+function AdminViewReplies() {
     const history = useHistory();
     const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['Category Id', 'Name', 'Topics', 'Created At', 'Actions'];
+    const tableHeaders = ['Reply Id', 'Reply', 'Post', 'Topic', 'Created At', 'Author', 'Actions'];
 
-    const { data: catData, error: errorCatData, isFetching: isFetchingCatData } = useQuery('categories', () => {
-        return http().get('/categories');
+    const { data: repData, error: errorRepData, isFetching: isFetchingRepData } = useQuery('repliesOrderedByPostTitle', () => {
+        return http().get('/replies/orderedByPostTitle');
     });
 
-    const { mutate: deleteCat, isError: isErrorDeleteCat, isLoading: isDeletingCat, isSuccess: isSuccessDeleteCat } = useMutation((id) => {
-        return http().delete(`/categories/${id}`);
+    const { mutate: deleteRep, isError: isErrorDeleteRep, isLoading: isDeletingRep, isSuccess: isSuccessDeleteRep } = useMutation((id) => {
+        return http().delete(`/replies/${id}`);
     }, {
         onSuccess: () => {
-            queryClient.invalidateQueries('categories');
+            queryClient.invalidateQueries('repliesOrderedByPostTitle');
         }
     }
     );
 
     useEffect(() => {
-        if (errorCatData) {
-            failureToast(errorCatData?.response?.data?.message || "Error");
-        } if (catData) {
-            setTableData(catData?.data.map(d => {
+        if (errorRepData) {
+            failureToast(errorRepData?.response?.data?.message || "Error");
+        } if (repData) {
+            setTableData(repData?.data.map(d => {
                 return {
                     id: d?.id,
-                    name: d?.name,
-                    topics: d?.Topics.length,
+                    reply: d?.content,
+                    post: d?.Post.content,
+                    topic: d?.Post.Topic.title,
                     createdAt: d?.createdAt.slice(0, 10),
+                    author: d?.User.name,
                 }
             }))
         }
-    }, [errorCatData, catData]);
+    }, [errorRepData, repData]);
 
     return (
         <Layout forAdminPanel={true} noFooter={true}>
             <Container>
                 <Row>
                     <Col lg={{ span: 10, offset: '1' }}>
-                        <HeaderBar title="Categories List" noPosts={true} />
+                        <HeaderBar title="Replies List" noPosts={true} />
                         <div className='d-flex justify-content-between mb-2'>
                             <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
-                            <Button type="button" onClick={() => history.push("/admin/categories/add")}>Add Category</Button>
+                            {/* <Button type="button" onClick={() => history.push("/admin/categories/add")}>Add Topic</Button> */}
                         </div>
                         <div>
                             <CustomTable
-                                tableName="Category"
+                                tableName="Reply"
                                 tableHeaders={tableHeaders}
                                 tableData={tableData}
-                                isFetchingTableData={isFetchingCatData}
-                                deleteFunc={deleteCat}
-                                isDeleting={isDeletingCat}
-                                isErrorDeleting={isErrorDeleteCat}
-                                isSuccessDeleting={isSuccessDeleteCat}
+                                isFetchingTableData={isFetchingRepData}
+                                deleteFunc={deleteRep}
+                                isDeleting={isDeletingRep}
+                                isErrorDeleting={isErrorDeleteRep}
+                                isSuccessDeleting={isSuccessDeleteRep}
                             />
                         </div>
                     </Col>
@@ -72,4 +74,4 @@ function AdminViewCategories() {
     );
 }
 
-export default AdminViewCategories;
+export default AdminViewReplies;

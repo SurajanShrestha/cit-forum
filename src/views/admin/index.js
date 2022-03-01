@@ -88,6 +88,9 @@ function AdminPanel() {
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
+                                                            <Link to="/admin/topics/add">Add Topic</Link>
+                                                        </li>
+                                                        <li>
                                                             <Link to="/admin/topics/view">View all Topics</Link>
                                                         </li>
                                                     </ul>
@@ -103,7 +106,10 @@ function AdminPanel() {
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/posts/add">View all Posts</Link>
+                                                            <Link to="/admin/posts/add">Add Post</Link>
+                                                        </li>
+                                                        <li>
+                                                            <Link to="/admin/posts/view">View all Posts</Link>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -118,7 +124,7 @@ function AdminPanel() {
                                                 <div className="menu">
                                                     <ul>
                                                         <li>
-                                                            <Link to="/admin/replies/add">View all Replies</Link>
+                                                            <Link to="/admin/replies/view">View all Replies</Link>
                                                         </li>
                                                     </ul>
                                                 </div>

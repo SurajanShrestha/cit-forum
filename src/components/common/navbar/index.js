@@ -20,7 +20,7 @@ function Navbar({ forAdminPanel = false }) {
     const handleLogout = () => {
         removeUser();
         if (forAdminPanel) {
-            history.replace("/admin");
+            history.replace("/admin/login");
         } else {
             history.go(0);
         }

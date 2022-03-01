@@ -13,7 +13,7 @@ function AdminViewUsers() {
     const history = useHistory();
     const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['UserId', 'Name', 'Role', 'Email', 'Age', 'Contact', 'Gender', 'Created At', 'Actions'];
+    const tableHeaders = ['User Id', 'Name', 'Role', 'Email', 'Age', 'Contact', 'Gender', 'Created At', 'Actions'];
 
     const { data: usersData, error: errorUsersData, isFetching: isFetchingUsersData } = useQuery('users', () => {
         return http().get('/users');

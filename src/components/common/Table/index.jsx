@@ -17,7 +17,7 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
         if (isErrorDeleting) {
             failureToast(`Error deleting ${tableName}`);
         } if (isSuccessDeleting) {
-            successToast(`Successfully deleted user ${tableName}`);
+            successToast(`Successfully deleted ${tableName}`);
         }
     }, [isSuccessDeleting, isErrorDeleting]);
 
@@ -34,7 +34,7 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
         <>
             <div>
                 <Popup show={show} handleClose={handleClose} handleSetYes={handleSetYes} heading={`Delete ${tableName}`} body={`Are you sure you want to delete this ${tableName}?`} />
-                <Table hover variant="dark" responsive>
+                <Table hover variant="dark" responsive style={{ tableLayout: 'fixed' }}>
                     <thead>
                         <tr>
                             {tableHeaders.map((h, i) => <th key={i}>{h}</th>)}
@@ -49,7 +49,7 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
                                 tableData.map((tdata, i) => {
                                     return (
                                         <tr key={i}>
-                                            {Object.keys(tdata).map((oKey, index) => <td key={index}>{tdata[oKey]}</td>)}
+                                            {Object.keys(tdata).map((oKey, index) => <td key={index} style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} title={tdata[oKey]}>{tdata[oKey]}</td>)}
                                             {deleteFunc ?
                                                 <td>
                                                     {isDeleting ?

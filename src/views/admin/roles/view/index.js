@@ -11,7 +11,7 @@ import CustomTable from '../../../../components/common/Table';
 function AdminViewRoles() {
     const history = useHistory();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['RoleId', 'Type', 'Created At'];
+    const tableHeaders = ['Role Id', 'Type', 'Created At'];
 
     const { data: rolesData, error: errorRolesData, isFetching: isFetchingRolesData } = useQuery('roles', () => {
         return http().get('/roles');
