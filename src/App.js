@@ -14,10 +14,12 @@ import CreateTopic from './views/createTopic';
 import AdminPanel from './views/admin';
 import AdminLogin from './views/admin/login';
 import AdminAddUser from './views/admin/users/add';
+import AdminUpdateUser from './views/admin/users/update';
 import AdminViewUsers from './views/admin/users/view';
 import AdminViewRoles from './views/admin/roles/view';
 import AdminViewCategories from './views/admin/categories/view';
 import AdminAddCategory from './views/admin/categories/add';
+import AdminUpdateCategory from './views/admin/categories/update';
 import AdminViewTopics from './views/admin/topics/view';
 import AdminAddTopic from './views/admin/topics/add';
 import AdminViewPosts from './views/admin/posts/view';
@@ -79,6 +81,9 @@ function App() {
             <Route path="/admin/users/add">
               <AdminAddUser />
             </Route>
+            <Route path="/admin/users/update/:slug">
+              <AdminUpdateUser />
+            </Route>
             <Route path="/admin/users/view">
               <AdminViewUsers />
             </Route>
@@ -90,6 +95,9 @@ function App() {
             </Route>
             <Route path="/admin/categories/add">
               <AdminAddCategory />
+            </Route>
+            <Route path="/admin/categories/update/:slug">
+              <AdminUpdateCategory />
             </Route>
             <Route path="/admin/topics/view">
               <AdminViewTopics />

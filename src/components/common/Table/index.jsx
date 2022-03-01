@@ -1,9 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Table, Spinner } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import { successToast, failureToast } from "../Toast";
 import Popup from '../Popup';
 
-function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTableData, deleteFunc, isDeleting, isErrorDeleting, isSuccessDeleting }) {
+function CustomTable({
+    tableName = 'data',
+    tableHeaders,
+    tableData,
+    isFetchingTableData,
+    deleteFunc,
+    isDeleting,
+    isErrorDeleting,
+    isSuccessDeleting,
+    updateRoute = ""
+}) {
+    const history = useHistory();
     // For Popup
     const [show, setShow] = useState(false);
     const [yesDelete, setYesDelete] = useState(false);
@@ -50,7 +62,7 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
                                     return (
                                         <tr key={i}>
                                             {Object.keys(tdata).map((oKey, index) => <td key={index} style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} title={tdata[oKey]}>{tdata[oKey]}</td>)}
-                                            {deleteFunc ?
+                                            {deleteFunc || updateRoute !== "" ?
                                                 <td>
                                                     {isDeleting ?
                                                         <Spinner animation='border' size='sm' /> :
@@ -58,6 +70,10 @@ function CustomTable({ tableName = 'data', tableHeaders, tableData, isFetchingTa
                                                             setShow(true);
                                                             setDeleteId(tdata?.id);
                                                         }}></i>
+                                                    }
+                                                    {updateRoute !== "" ?
+                                                        <i className="fa fa-pencil admin-action-icon" aria-hidden="true" title="Edit" onClick={() => history.push(`${updateRoute}/${tdata?.id}`)}></i> :
+                                                        null
                                                     }
                                                 </td> :
                                                 null

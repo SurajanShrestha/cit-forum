@@ -63,6 +63,7 @@ function AdminViewCategories() {
                                 isDeleting={isDeletingCat}
                                 isErrorDeleting={isErrorDeleteCat}
                                 isSuccessDeleting={isSuccessDeleteCat}
+                                updateRoute={'/admin/categories/update'}
                             />
                         </div>
                     </Col>

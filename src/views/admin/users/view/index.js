@@ -67,6 +67,7 @@ function AdminViewUsers() {
                                 isDeleting={isDeletingUser}
                                 isErrorDeleting={isErrorDeleteUser}
                                 isSuccessDeleting={isSuccessDeleteUser}
+                                updateRoute={'/admin/users/update'}
                             />
                         </div>
                     </Col>
