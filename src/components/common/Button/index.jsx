@@ -13,8 +13,10 @@ const Button = ({
         let classes = '';
         if (variant === 'primary') {
             classes += ' custom-primary-outline-btn ';
-        }else if(variant === 'secondary') {
+        } else if (variant === 'secondary') {
             classes += ' custom-secondary-outline-btn ';
+        } else if (variant === 'danger') {
+            classes += ' custom-danger-outline-btn ';
         }
         return classes;
     };

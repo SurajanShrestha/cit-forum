@@ -7,6 +7,7 @@ import { successToast, failureToast } from '../Toast';
 import { getUser } from '../../../storage';
 import Button from '../Button';
 import Input from '../Input';
+import Popup from '../Popup';
 import { createReplyValidationSchema } from '../../../validations/createReply.validation';
 
 const initialValues = {
@@ -19,6 +20,17 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
     const [showReplyField, setShowReplyField] = useState(false);
     const [repliedToId, setRepliedToId] = useState('');
     const [fetchRepliedToUserData, setFetchRepliedToUserData] = useState(false);
+    const [showEditField, setShowEditField] = useState(false);
+
+    const [editReplyInitialValues, setEditReplyInitialValues] = useState(initialValues);
+
+    // For Popup
+    const [show, setShow] = useState(false);
+    const [yesDelete, setYesDelete] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleSetYes = () => setYesDelete(true);
 
     const { data: repliedToData } = useQuery(['repliedTo', { repliedToId }], () => {
         return http().get(`/replies/${repliedToId}`);
@@ -36,11 +48,29 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
     }
     );
 
+    const { mutate: updateReply, error: updateError, isLoading: isUpdating, isSuccess: isUpdateSuccess } = useMutation((payload) => {
+        return http().patch(`/replies/${id}`, payload);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('reply');
+        }
+    });
+
+    const { mutate: deleteReply, isError: isErrorDeleteReply, isLoading: isDeletingReply, isSuccess: isSuccessDeleteReply } = useMutation((id) => {
+        return http().delete(`/replies/${id}`);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('reply');
+            queryClient.invalidateQueries('posts');
+        }
+    }
+    );
+
     useEffect(() => {
         if (replyToId) {
             setFetchRepliedToUserData(true);
             setRepliedToId(replyToId);
-        }else{
+        } else {
             setFetchRepliedToUserData(false);
         }
     }, []);
@@ -55,6 +85,41 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
             setShowReplyField(false);
         }
     }, [replyToError, isSuccessReplyTo]);
+
+    useEffect(() => {
+        if (showEditField) {
+            setEditReplyInitialValues({
+                ...initialValues,
+                content: answer
+            });
+        }
+    }, [showEditField]);
+
+    useEffect(()=>{
+        if(isUpdateSuccess){
+            successToast("Reply successfully updated.");
+            setShowEditField(false);
+        }
+        if(updateError){
+            failureToast(updateError?.response?.data?.message || "Error updating post");
+        }
+    },[updateError, isUpdateSuccess]);
+
+    useEffect(() => {
+        if (yesDelete) {
+            deleteReply(id);
+            setYesDelete(false);
+        }
+    }, [yesDelete]);
+
+    useEffect(()=>{
+        if(isSuccessDeleteReply){
+            successToast('Reply successfully deleted');
+        }
+        if(isErrorDeleteReply){
+            failureToast('Failed to delete reply');
+        }
+    },[isErrorDeleteReply, isSuccessDeleteReply]);
 
     const handleCreateReplyTo = () => {
         if (getUser()) {
@@ -76,8 +141,30 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
         }
     };
 
+    const handleEditReply = () => {
+        if (getUser()) {
+            setShowEditField(true);
+        } else {
+            failureToast('You must log in to edit a Reply');
+            setShowEditField(false);
+        }
+    };
+
+    const handleEditReplySubmit = (values) => {
+        if (getUser()) {
+            updateReply(values);
+        }
+    };
+
     return (
         <div className="post">
+            <Popup
+                show={show}
+                handleClose={handleClose}
+                handleSetYes={handleSetYes}
+                heading="Delete Reply"
+                body="Are you sure you want to delete this Reply?"
+            />
             <div className="userAvatar">
                 <Link to={`/user/${userId}`}>
                     <img src={userAvatar} alt="User Avatar" />
@@ -94,24 +181,54 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
                     </div>
                 </div>
                 {
-                    repliedToData ?
-                        <article className="userAnswer">
-                            <Link to="/"><span className="replyTo">{repliedToData?.data?.User?.name}</span></Link>
-                            {answer}
-                        </article> :
-                        <article className="userAnswer">
-                            {answer}
-                        </article>
+                    showEditField ?
+                        <div className="single-form mb-3">
+                            <Formik
+                                initialValues={editReplyInitialValues}
+                                validationSchema={createReplyValidationSchema}
+                                onSubmit={handleEditReplySubmit}
+                                enableReinitialize
+                            >
+                                {() => {
+                                    return (
+                                        <Form>
+                                            <Input name="content" label="Edit your Reply" type="textarea" rows={5} placeholder="Your reply..." />
+                                            <div className="btn-container" style={{ justifyContent: 'right', paddingTop: 5 }}>
+                                                <Button type="submit" loading={isUpdating}>Update Reply</Button>
+                                                <Button className="ms-3" type="button" variant="secondary" onClick={() => setShowEditField(false)} >Cancel</Button>
+                                            </div>
+                                        </Form>
+                                    )
+                                }}
+                            </Formik>
+                        </div> :
+                        repliedToData ?
+                            <article className="userAnswer">
+                                <Link to="/"><span className="replyTo">{repliedToData?.data?.User?.name}</span></Link>
+                                {answer}
+                            </article> :
+                            <article className="userAnswer">
+                                {answer}
+                            </article>
                 }
                 <div className="postActions">
-                    {/* <div className="action">
-                        <i className="fa fa-heart-o like" aria-hidden="true" title="Like"></i>
-                        {totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null}
-                    </div> */}
-                    {!showReplyField &&
+                    {!showReplyField && !showEditField ?
                         <div className='text-end mb-2 action'>
                             <Button type="button" onClick={handleCreateReplyTo}>Reply</Button>
-                        </div>
+                        </div> :
+                        null
+                    }
+                    {(getUser()?.id === parseInt(userId)) && !showEditField && !showReplyField ?
+                        <div className='text-end mb-2 action'>
+                            <Button type="button" variant='secondary' onClick={handleEditReply}>Edit</Button>
+                        </div> :
+                        null
+                    }
+                    {(getUser()?.id === parseInt(userId)) ?
+                        <div className='text-end mb-2 action'>
+                            <Button type="button" variant='danger' loading={isDeletingReply} onClick={handleShow}>Delete</Button>
+                        </div> :
+                        null
                     }
                 </div>
                 {showReplyField &&

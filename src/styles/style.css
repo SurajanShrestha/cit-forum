@@ -105,6 +105,22 @@ a:hover {
   cursor: pointer;
 }
 
+.custom-danger-outline-btn {
+  background-color: transparent;
+  border: 1px solid #ab2828;
+  color: #ab2828;
+  padding: 0.4rem;
+  font-size: 0.7rem;
+}
+
+.custom-danger-outline-btn:hover {
+  background-color: #ab2828;
+  border: 1px solid #ab2828;
+  color: #1a1a1a;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .post .postContent {
   width: 100%;
 }

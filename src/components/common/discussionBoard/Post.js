@@ -8,6 +8,7 @@ import Reply from './Reply';
 import { getUser } from '../../../storage';
 import Button from '../Button';
 import Input from '../Input';
+import Popup from '../Popup';
 import { createReplyValidationSchema } from '../../../validations/createReply.validation';
 import { createPostValidationSchema } from '../../../validations/createPost.validation';
 
@@ -27,6 +28,14 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
     const [showEditPostField, setShowEditPostField] = useState(false);
 
     const [editPostInitialValues, setEditPostInitialValues] = useState(postInitialValues);
+
+    // For Popup
+    const [show, setShow] = useState(false);
+    const [yesDelete, setYesDelete] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleSetYes = () => setYesDelete(true);
 
     const { data: replyData, error: errorReplyData } = useQuery(['reply', { id }], () => {
         return http().get(`/replies/byPostId?PostId=${id}`);
@@ -49,6 +58,15 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
             queryClient.invalidateQueries('posts');
         }
     });
+
+    const { mutate: deletePost, isError: isErrorDeletePost, isLoading: isDeletingPost, isSuccess: isSuccessDeletePost } = useMutation((id) => {
+        return http().delete(`/posts/${id}`);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('posts');
+        }
+    }
+    );
 
     useEffect(() => {
         if (errorReplyData) {
@@ -76,15 +94,32 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
         }
     }, [showEditPostField]);
 
-    useEffect(()=>{
-        if(isUpdateSuccess){
+    useEffect(() => {
+        if (isUpdateSuccess) {
             successToast("Post successfully updated.");
             setShowEditPostField(false);
         }
-        if(updateError){
+        if (updateError) {
             failureToast(updateError?.response?.data?.message || "Error updating post");
         }
-    },[updateError, isUpdateSuccess]);
+    }, [updateError, isUpdateSuccess]);
+
+    useEffect(() => {
+        if (yesDelete) {
+            deletePost(id);
+            setYesDelete(false);
+        }
+    }, [yesDelete]);
+
+    useEffect(()=>{
+        if(isSuccessDeletePost){
+            successToast('Post successfully deleted');
+        }
+        if(isErrorDeletePost){
+            failureToast('Failed to delete post');
+        }
+    },[isErrorDeletePost, isSuccessDeletePost]);
+
 
     const handleCreateReply = () => {
         if (getUser()) {
@@ -110,7 +145,7 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
         if (getUser()) {
             setShowEditPostField(true);
         } else {
-            failureToast('You must log in to write a Reply');
+            failureToast('You must log in to edit a Post');
             setShowEditPostField(false);
         }
     };
@@ -123,6 +158,13 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
 
     return (
         <div className="post">
+            <Popup
+                show={show}
+                handleClose={handleClose}
+                handleSetYes={handleSetYes}
+                heading="Delete Post"
+                body="Are you sure you want to delete this Post?"
+            />
             <div className="userAvatar">
                 <Link to="/">
                     <img src={userAvatar} alt="User Avatar" />
@@ -145,12 +187,11 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
                             validationSchema={createPostValidationSchema}
                             onSubmit={handlePostSubmit}
                             enableReinitialize
-                            innerRef={formikBag}
                         >
                             {() => {
                                 return (
                                     <Form>
-                                        <Input name="content" label="Write your post" type="textarea" rows={5} placeholder="Start writing..." />
+                                        <Input name="content" label="Edit your Post" type="textarea" rows={5} placeholder="Start writing..." />
                                         <div className="btn-container" style={{ justifyContent: 'right', paddingTop: 5 }}>
                                             <Button type="submit" loading={isUpdating}>Update Post</Button>
                                             <Button className="ms-3" type="button" variant="secondary" onClick={() => setShowEditPostField(false)} >Cancel</Button>
@@ -172,18 +213,21 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
                                 <small className="view-replies f-sm" title="View Replies" onClick={() => setOpenReplies(!openReplies)}>{totalReplies || "0"} Replies&nbsp;<i class={openReplies ? "fa fa-angle-up" : "fa fa-angle-down"} aria-hidden="true"></i></small>
                             </div>
                     }
-                    {/* <div className="action">
-                        <i className="fa fa-heart-o like" aria-hidden="true" title="Like"></i>
-                        {totalLikes ? <small className="f-xs grayText">{totalLikes}</small> : null}
-                    </div> */}
-                    {!showReplyField &&
+                    {!showReplyField && !showEditPostField ?
                         <div className='text-end mb-2 action'>
                             <Button type="button" onClick={handleCreateReply}>Reply</Button>
-                        </div>
+                        </div> :
+                        null
                     }
-                    {getUser()?.id === parseInt(userId) ?
+                    {(getUser()?.id === parseInt(userId)) && !showEditPostField && !showReplyField ?
                         <div className='text-end mb-2 action'>
                             <Button type="button" variant='secondary' onClick={handleEditPost}>Edit</Button>
+                        </div> :
+                        null
+                    }
+                    {(getUser()?.id === parseInt(userId)) ?
+                        <div className='text-end mb-2 action'>
+                            <Button type="button" variant='danger' loading={isDeletingPost} onClick={handleShow}>Delete</Button>
                         </div> :
                         null
                     }
