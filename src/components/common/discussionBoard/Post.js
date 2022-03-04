@@ -9,16 +9,24 @@ import { getUser } from '../../../storage';
 import Button from '../Button';
 import Input from '../Input';
 import { createReplyValidationSchema } from '../../../validations/createReply.validation';
+import { createPostValidationSchema } from '../../../validations/createPost.validation';
 
 const initialValues = {
     content: "",
 };
 
-function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ totalReplies }) {
+const postInitialValues = {
+    content: "",
+}
+
+function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLikes, */ totalReplies }) {
     const formikBag = useRef();
     const queryClient = useQueryClient();
     const [openReplies, setOpenReplies] = useState(false);
     const [showReplyField, setShowReplyField] = useState(false);
+    const [showEditPostField, setShowEditPostField] = useState(false);
+
+    const [editPostInitialValues, setEditPostInitialValues] = useState(postInitialValues);
 
     const { data: replyData, error: errorReplyData } = useQuery(['reply', { id }], () => {
         return http().get(`/replies/byPostId?PostId=${id}`);
@@ -33,6 +41,14 @@ function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ 
         }
     }
     );
+
+    const { mutate: updatePost, error: updateError, isLoading: isUpdating, isSuccess: isUpdateSuccess } = useMutation((payload) => {
+        return http().patch(`/posts/${id}`, payload);
+    }, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('posts');
+        }
+    });
 
     useEffect(() => {
         if (errorReplyData) {
@@ -50,6 +66,25 @@ function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ 
             setShowReplyField(false);
         }
     }, [replyError, isSuccessReply]);
+
+    useEffect(() => {
+        if (showEditPostField) {
+            setEditPostInitialValues({
+                ...postInitialValues,
+                content: answer
+            });
+        }
+    }, [showEditPostField]);
+
+    useEffect(()=>{
+        if(isUpdateSuccess){
+            successToast("Post successfully updated.");
+            setShowEditPostField(false);
+        }
+        if(updateError){
+            failureToast(updateError?.response?.data?.message || "Error updating post");
+        }
+    },[updateError, isUpdateSuccess]);
 
     const handleCreateReply = () => {
         if (getUser()) {
@@ -71,6 +106,21 @@ function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ 
         }
     };
 
+    const handleEditPost = () => {
+        if (getUser()) {
+            setShowEditPostField(true);
+        } else {
+            failureToast('You must log in to write a Reply');
+            setShowEditPostField(false);
+        }
+    };
+
+    const handlePostSubmit = (values) => {
+        if (getUser()) {
+            updatePost(values);
+        }
+    };
+
     return (
         <div className="post">
             <div className="userAvatar">
@@ -88,9 +138,32 @@ function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ 
                         <small className="f-xs">{postedDate}</small>
                     </div>
                 </div>
-                <article className="userAnswer">
-                    {answer}
-                </article>
+                {showEditPostField ?
+                    <div className="single-form mb-3">
+                        <Formik
+                            initialValues={editPostInitialValues}
+                            validationSchema={createPostValidationSchema}
+                            onSubmit={handlePostSubmit}
+                            enableReinitialize
+                            innerRef={formikBag}
+                        >
+                            {() => {
+                                return (
+                                    <Form>
+                                        <Input name="content" label="Write your post" type="textarea" rows={5} placeholder="Start writing..." />
+                                        <div className="btn-container" style={{ justifyContent: 'right', paddingTop: 5 }}>
+                                            <Button type="submit" loading={isUpdating}>Update Post</Button>
+                                            <Button className="ms-3" type="button" variant="secondary" onClick={() => setShowEditPostField(false)} >Cancel</Button>
+                                        </div>
+                                    </Form>
+                                )
+                            }}
+                        </Formik>
+                    </div> :
+                    <article className="userAnswer">
+                        {answer}
+                    </article>
+                }
                 <div className="postActions">
                     {
                         totalReplies === 0 ?
@@ -107,6 +180,12 @@ function Post({ id, userName, userAvatar, postedDate, answer, /* totalLikes, */ 
                         <div className='text-end mb-2 action'>
                             <Button type="button" onClick={handleCreateReply}>Reply</Button>
                         </div>
+                    }
+                    {getUser()?.id === parseInt(userId) ?
+                        <div className='text-end mb-2 action'>
+                            <Button type="button" variant='secondary' onClick={handleEditPost}>Edit</Button>
+                        </div> :
+                        null
                     }
                 </div>
                 {showReplyField &&

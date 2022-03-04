@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import { http } from '../../../services/httpHelper';
@@ -7,7 +7,18 @@ import { successToast, failureToast } from '../Toast';
 import Popup from '../Popup';
 import { getUser } from '../../../storage';
 
-function ListItem({ id, topic, createdDate, posts, author, authorId, index, deletable }) {
+function ListItem({
+    id,
+    topic,
+    createdDate,
+    posts,
+    author,
+    authorId,
+    index,
+    deletable,
+    editable
+}) {
+    const history = useHistory();
     const queryClient = useQueryClient();
 
     // For Popup
@@ -65,7 +76,23 @@ function ListItem({ id, topic, createdDate, posts, author, authorId, index, dele
                         {deletable ?
                             isDeletingTopic ?
                                 <Spinner animation="border" size="sm" /> :
-                                <i onClick={handleShow} className="f-md grayText fa fa-trash-o ms-2 clickable" aria-hidden="true" title="Delete Topic"></i> :
+                                <i
+                                    onClick={handleShow}
+                                    className="f-md grayText fa fa-trash-o ms-2 clickable"
+                                    aria-hidden="true"
+                                    title="Delete"
+                                >
+                                </i> :
+                            null
+                        }
+                        {editable ?
+                            <i
+                                onClick={() => history.push(`/updateTopic/${id}`)}
+                                className="f-md grayText fa fa-pencil ms-2 clickable"
+                                aria-hidden="true"
+                                title="Edit"
+                            >
+                            </i> :
                             null
                         }
                     </div>

@@ -58,6 +58,7 @@ function AdminLogin() {
                                             <Button type="submit" loading={isLoggingIn} disabled={!dirty}>Login</Button>
                                         </div>
                                         <p className="note">You are logging in as admin.</p>
+                                        <p className="note">Not an admin? Go to <a href="/" className="f-sm f-bold">Homepage</a></p>
                                     </Form>
                                 );
                             }}

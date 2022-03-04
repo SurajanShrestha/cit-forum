@@ -10,7 +10,7 @@ import { editUserNameValidationSchema } from '../../../validations/editUser.vali
 import Input from '../Input';
 import Button from '../Button';
 
-function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, editable, title, categoryId, categoryType, totalTopics, totalPosts, noPosts = false }) {
+function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, editable = false, title, categoryId, categoryType, totalTopics, totalPosts, noPosts = false }) {
     const queryClient = useQueryClient();
     const [showEditNameField, setShowEditNameField] = useState(false);
 

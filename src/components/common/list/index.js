@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import ListItem from './ListItem';
 
-function List({ data, deletable = false }) {
+function List({ data, deletable = false, editable = false }) {
     return (
         <div>
             <Row className="mb-3 px-3">
@@ -11,7 +11,18 @@ function List({ data, deletable = false }) {
             </Row>
             {data ?
                 data.map((item, index) => {
-                    return <ListItem id={item.id} topic={item.title} createdDate={item.createdAt.slice(0, 10)} posts={item.Posts.length} author={item?.User?.name} authorId={item?.User?.id} key={index} index={++index} deletable={deletable} />
+                    return <ListItem
+                        id={item.id}
+                        topic={item.title}
+                        createdDate={item.createdAt.slice(0, 10)}
+                        posts={item.Posts.length}
+                        author={item?.User?.name}
+                        authorId={item?.User?.id}
+                        key={index}
+                        index={++index}
+                        deletable={deletable}
+                        editable={editable}
+                    />
                 }) :
                 null
             }

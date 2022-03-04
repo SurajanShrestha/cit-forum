@@ -13,7 +13,7 @@ function AdminViewTopics() {
     const history = useHistory();
     const queryClient = useQueryClient();
     const [tableData, setTableData] = useState([]);
-    const tableHeaders = ['Topic Id', 'Topic', 'Posts', 'Created At', 'Author', 'Actions'];
+    const tableHeaders = ['Topic Id', 'Topic', 'Category', 'Posts', 'Created At', 'Author', 'Actions'];
 
     const { data: topData, error: errorTopData, isFetching: isFetchingTopData } = useQuery('topics', () => {
         return http().get('/topics');
@@ -36,6 +36,7 @@ function AdminViewTopics() {
                 return {
                     id: d?.id,
                     topic: d?.title,
+                    category: d?.Category?.name,
                     posts: d?.Posts.length,
                     createdAt: d?.createdAt.slice(0, 10),
                     author: d?.User.name,

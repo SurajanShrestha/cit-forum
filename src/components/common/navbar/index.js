@@ -49,7 +49,7 @@ function Navbar({ forAdminPanel = false }) {
                         }
                         {Object.keys(userData).length ?
                             <>
-                                <Link to={`/userAccount/${userData.id}`} className="f-sm mx-2">Welcome, {userData.name}</Link>
+                                <Link to={forAdminPanel ? `/admin/userAccount/${userData.id}` : `/userAccount/${userData.id}`} className="f-sm mx-2">Welcome, {userData.name}</Link>
                                 <Link to="#" className="f-sm mx-2" onClick={handleLogout}>Log Out</Link>
                                 {forAdminPanel ?
                                     null :

@@ -9,6 +9,7 @@ function DiscussionBoard({ postsData }) {
                         return (
                             <Post
                                 id={post?.id}
+                                userId={post?.User?.id}
                                 userName={post?.User?.name}
                                 userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-01.jpg"}
                                 postedDate={post?.createdAt.slice(0, 10)}

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import { useParams, useHistory } from 'react-router-dom';
-import Layout from "../layout";
+import Layout from "../../layout";
 import { useQuery } from 'react-query';
-import { http } from '../../services/httpHelper';
-import { failureToast } from "../../components/common/Toast";
-import { HeaderBar } from '../../components';
-import { List } from '../../components';
-import { getUser } from '../../storage';
+import { http } from '../../../services/httpHelper';
+import { failureToast } from "../../../components/common/Toast";
+import { HeaderBar } from '../../../components';
+import { List } from '../../../components';
+import { getUser } from '../../../storage';
 
-function UserAccount() {
+function AdminUserAccount() {
     const { slug } = useParams();
     const history = useHistory();
 
@@ -30,7 +30,7 @@ function UserAccount() {
     }, [errorMyProfileData]);
 
     return (
-        <Layout>
+        <Layout forAdminPanel={true} noFooter={true}>
             <Container>
                 <Row>
                     <Col lg={{ span: 8, offset: 2 }}>
@@ -59,4 +59,4 @@ function UserAccount() {
     )
 }
 
-export default UserAccount;
+export default AdminUserAccount;

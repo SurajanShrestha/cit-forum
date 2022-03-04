@@ -9,7 +9,7 @@ import { successToast, failureToast } from "../../components/common/Toast";
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import { HeaderBar } from '../../components';
-import { BulletinBoard } from '../../components';
+// import { BulletinBoard } from '../../components';
 import { DiscussionBoard } from '../../components';
 import { getUser } from '../../storage';
 import { createPostValidationSchema } from '../../validations/createPost.validation';

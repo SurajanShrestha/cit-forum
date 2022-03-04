@@ -11,8 +11,10 @@ import UserAccount from './views/userAccount';
 import SearchResults from './views/searchResults';
 import CategoryTopics from './views/categoryTopics';
 import CreateTopic from './views/createTopic';
+import UpdateTopic from './views/updateTopic';
 import AdminPanel from './views/admin';
 import AdminLogin from './views/admin/login';
+import AdminUserAccount from './views/admin/userAccount';
 import AdminAddUser from './views/admin/users/add';
 import AdminUpdateUser from './views/admin/users/update';
 import AdminViewUsers from './views/admin/users/view';
@@ -72,11 +74,17 @@ function App() {
             <Route path="/createTopic">
               <CreateTopic />
             </Route>
+            <Route path="/updateTopic/:slug">
+              <UpdateTopic />
+            </Route>
             <Route path="/admin" exact>
               <AdminPanel />
             </Route>
             <Route path="/admin/login">
               <AdminLogin />
+            </Route>
+            <Route path="/admin/userAccount/:slug">
+              <AdminUserAccount />
             </Route>
             <Route path="/admin/users/add">
               <AdminAddUser />
