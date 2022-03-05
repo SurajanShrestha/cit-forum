@@ -8,6 +8,8 @@ import Home from './views/home';
 import Topic from './views/topic';
 import User from './views/user';
 import UserAccount from './views/userAccount';
+import UpdateUserAccount from './views/userAccount/edit';
+import UpdateUserPassword from './views/userAccount/changePw';
 import SearchResults from './views/searchResults';
 import CategoryTopics from './views/categoryTopics';
 import CreateTopic from './views/createTopic';
@@ -15,6 +17,8 @@ import UpdateTopic from './views/updateTopic';
 import AdminPanel from './views/admin';
 import AdminLogin from './views/admin/login';
 import AdminUserAccount from './views/admin/userAccount';
+import AdminUpdateUserAccount from './views/admin/userAccount/edit';
+import AdminUpdateUserPassword from './views/admin/userAccount/changePw';
 import AdminAddUser from './views/admin/users/add';
 import AdminUpdateUser from './views/admin/users/update';
 import AdminViewUsers from './views/admin/users/view';
@@ -62,6 +66,13 @@ function App() {
             <Route path="/user/:slug">
               <User />
             </Route>
+            {/* Putting /userAccount/update/:slug before /userAccount/:slug because the latter will match any string after userAccount/ */}
+            <Route path="/userAccount/update/:slug">
+              <UpdateUserAccount />
+            </Route>
+            <Route path="/userAccount/updatePw">
+              <UpdateUserPassword />
+            </Route>
             <Route path="/userAccount/:slug">
               <UserAccount />
             </Route>
@@ -82,6 +93,12 @@ function App() {
             </Route>
             <Route path="/admin/login">
               <AdminLogin />
+            </Route>
+            <Route path="/admin/userAccount/update/:slug">
+              <AdminUpdateUserAccount />
+            </Route>
+            <Route path="/admin/userAccount/updatePw">
+              <AdminUpdateUserPassword />
             </Route>
             <Route path="/admin/userAccount/:slug">
               <AdminUserAccount />

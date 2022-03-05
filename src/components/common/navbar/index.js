@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import { getUser, removeUser } from '../../../storage';
+import { FaSearch } from 'react-icons/fa';
 
 function Navbar({ forAdminPanel = false }) {
     const history = useHistory();
@@ -44,7 +45,7 @@ function Navbar({ forAdminPanel = false }) {
                         {forAdminPanel ?
                             null :
                             <span href="#" className="f-md mx-2 greenText clickable" onClick={() => setOpenSearch(!openSearch)}>
-                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <FaSearch />
                             </span>
                         }
                         {Object.keys(userData).length ?

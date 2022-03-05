@@ -3,14 +3,16 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useQueryClient, useQuery, useMutation } from "react-query";
 import { Container, Row, Col } from "react-bootstrap";
 import { Formik, Form } from 'formik';
-import Layout from "../../../layout";
-import { http } from "../../../../services/httpHelper";
-import { successToast, failureToast } from "../../../../components/common/Toast";
-import { editUserByAdminValidationSchema } from "../../../../validations/editUser.validation";
-import Button from "../../../../components/common/Button";
-import Input from "../../../../components/common/Input";
-import Select from "../../../../components/common/Select";
-import { FaEye, FaLongArrowAltLeft } from "react-icons/fa";
+import Layout from "../layout";
+import { http } from "../../services/httpHelper";
+import { getUser } from "../../storage";
+import { successToast, failureToast } from "../../components/common/Toast";
+import { updateProfileValidationSchema } from "../../validations/editUser.validation";
+import Button from "../../components/common/Button";
+import Input from "../../components/common/Input";
+import Select from "../../components/common/Select";
+import { FaLongArrowAltLeft, FaUserAlt } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 const initialValues = {
     email: "",
@@ -18,10 +20,9 @@ const initialValues = {
     age: "",
     contact: "",
     gender: "",
-    RoleId: "",
 };
 
-function AdminUpdateUser() {
+function UpdateUserAccount() {
     const history = useHistory();
     const { slug } = useParams();
     const queryClient = useQueryClient();
@@ -33,7 +34,7 @@ function AdminUpdateUser() {
         return http().get(`/users/${slug}`);
     });
 
-    const { mutate: updateUser, error: updateError, isLoading: isUpdating, isSuccess: isUpdateSuccess } = useMutation((payload) => {
+    const { mutate: updateUser, data: editedUserData, error: updateError, isLoading: isUpdating, isSuccess: isUpdateSuccess } = useMutation((payload) => {
         return http().patch(`/users/${slug}`, payload);
     }, {
         onSuccess: () => {
@@ -53,7 +54,6 @@ function AdminUpdateUser() {
                 age: userData?.data?.age.toString(),
                 contact: userData?.data?.contact.toString(),
                 gender: userData?.data?.gender.toString(),
-                RoleId: userData?.data?.RoleId.toString(),
             })
         }
     }, [userData]);
@@ -62,6 +62,12 @@ function AdminUpdateUser() {
         if (isUpdateSuccess) {
             successToast("Successfully updated user.");
             formikBag.current?.resetForm();
+            const newSessionUserData = {
+                ...getUser(),
+                name: editedUserData?.data?.user?.name
+            };
+            sessionStorage.setItem('cdUser', JSON.stringify(newSessionUserData));
+            window.location.reload(true);
         }
         if (updateError) {
             failureToast(updateError?.response?.data?.message || "Error updating user.");
@@ -69,17 +75,17 @@ function AdminUpdateUser() {
     }, [isUpdateSuccess, updateError]);
 
     return (
-        <Layout forAdminPanel={true} noFooter={true}>
+        <Layout>
             <Container>
                 <Row className="px-3">
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">
-                        <p className="form-heading">Edit a User</p>
+                        <p className="form-heading">Update your profile</p>
                         <div className="w-100 d-flex justify-content-end">
                             <p className="clickable f-sm greenText" onClick={() => history.goBack()}><FaLongArrowAltLeft /> Go Back</p>
                         </div>
                         <Formik
                             initialValues={editUserInitialValues}
-                            validationSchema={editUserByAdminValidationSchema}
+                            validationSchema={updateProfileValidationSchema}
                             onSubmit={handleSubmit}
                             enableReinitialize
                             innerRef={formikBag}
@@ -94,11 +100,6 @@ function AdminUpdateUser() {
                                                 userData ?
                                                     <>
                                                         <Input name="name" label="Full Name" type="text" placeholder="Enter your full name" />
-                                                        <Select name="RoleId" label="Role">
-                                                            <option value="" hidden>Select User Role</option>
-                                                            <option value="1">Admin</option>
-                                                            <option value="2">Normal User</option>
-                                                        </Select>
                                                         <Input name="email" label="Email" type="email" placeholder="Enter your email" />
                                                         <Input name="age" label="Age" type="number" min="16" placeholder="Enter your age" />
                                                         <Select name="gender" label="Gender">
@@ -119,7 +120,10 @@ function AdminUpdateUser() {
                             }}
                         </Formik>
                         <p className="note">
-                            <Link to="/admin/users/view" className="clickable"><FaEye /> View Users</Link>
+                            <Link to={`/userAccount/${slug}`} className="clickable"><FaUserAlt /> My Account</Link>
+                        </p>
+                        <p className="note">
+                            <Link to="/userAccount/updatePw" className="clickable"><RiLockPasswordFill /> Change Password</Link>
                         </p>
                     </Col>
                 </Row>
@@ -128,4 +132,4 @@ function AdminUpdateUser() {
     )
 }
 
-export default AdminUpdateUser;
+export default UpdateUserAccount;

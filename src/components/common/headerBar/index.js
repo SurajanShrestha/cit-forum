@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
+import { FaPencilAlt } from 'react-icons/fa';
 import { Formik, Form } from 'formik';
 import { http } from '../../../services/httpHelper';
 import { getUser } from '../../../storage';
@@ -10,7 +11,24 @@ import { editUserNameValidationSchema } from '../../../validations/editUser.vali
 import Input from '../Input';
 import Button from '../Button';
 
-function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, editable = false, title, categoryId, categoryType, totalTopics, totalPosts, noPosts = false }) {
+function HeaderBar({
+    userId = '',
+    userName,
+    userEmail,
+    userAvatar,
+    userRole = null,
+    avatarWidth,
+    editable = false,
+    updateUser = false,
+    updateUserRoute = '',
+    title,
+    categoryId,
+    categoryType,
+    totalTopics,
+    totalPosts,
+    noPosts = false
+}) {
+    const history = useHistory();
     const queryClient = useQueryClient();
     const [showEditNameField, setShowEditNameField] = useState(false);
 
@@ -59,14 +77,6 @@ function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, 
                 {
                     userName ?
                         <Col xs={9} className="d-flex align-items-center">
-                            {/* {
-                                editable ?
-                                    <div className="change-avatar">
-                                        <img src={userAvatar} width={avatarWidth} alt="User Avatar" />
-                                        <span className="overlay" title="Edit Avatar"><i class="fa fa-camera" aria-hidden="true"></i></span>
-                                    </div> :
-                                    <img src={userAvatar} width={avatarWidth} alt="User Avatar" />
-                            } */}
                             <img src={userAvatar} width={avatarWidth} alt="User Avatar" />
                             <div className="d-flex flex-column px-2">
                                 {
@@ -94,7 +104,7 @@ function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, 
                                             <p className="f-xl">
                                                 {userName}
                                                 <span className="grayText f-sm clickable" title="Edit Name" onClick={() => setShowEditNameField(true)}>
-                                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                    <FaPencilAlt />
                                                 </span>
                                             </p> :
                                         <p className="f-xl">
@@ -102,6 +112,7 @@ function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, 
                                         </p>
                                 }
                                 {userEmail ? <small className="f-sm grayText">{userEmail}</small> : null}
+                                {userRole ? <small className="f-sm greenText mt-2">{userRole}</small> : null}
                             </div>
                         </Col> :
                         null
@@ -141,6 +152,12 @@ function HeaderBar({ userId = '', userName, userEmail, userAvatar, avatarWidth, 
                                     <small className="grayText">Posts</small>
                                 </> :
                                 null
+                        }
+                        {updateUser ?
+                            <div className='f-sm mt-2'>
+                                <Button type="submit" onClick={() => history.push(updateUserRoute)}>Edit profile</Button>
+                            </div> :
+                            null
                         }
                     </div>
                 </Col>

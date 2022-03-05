@@ -25,7 +25,7 @@ function SearchResults() {
                             <p className='f-sm'>Loading...</p> :
                             topicsData?.data.length ?
                                 <List data={topicsData?.data} /> :
-                                <p className='f-sm'>No topics for this category</p>
+                                <p className='f-sm'>No topics found.</p>
                         }
                     </Col>
                     {/* <Col lg={4}>

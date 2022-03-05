@@ -11,6 +11,7 @@ import { getUser } from '../../../../storage';
 import Button from "../../../../components/common/Button";
 import Input from "../../../../components/common/Input";
 import Select from "../../../../components/common/Select";
+import { FaEye, FaLongArrowAltLeft } from "react-icons/fa";
 
 const initialValues = {
     content: "",
@@ -57,7 +58,7 @@ function AdminAddPost() {
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">
                         <p className="form-heading">Add a Post</p>
                         <div className="w-100 d-flex justify-content-end">
-                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><FaLongArrowAltLeft /> Go Back</p>
                         </div>
                         <Formik
                             initialValues={initialValues}
@@ -92,7 +93,7 @@ function AdminAddPost() {
                             }}
                         </Formik>
                         <p className="note">
-                            <Link to="/admin/posts/view" className="clickable"><i class="fa fa-eye" aria-hidden="true"></i> View Posts</Link>
+                            <Link to="/admin/posts/view" className="clickable"><FaEye /> View Posts</Link>
                         </p>
                     </Col>
                 </Row>

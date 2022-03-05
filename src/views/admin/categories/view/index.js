@@ -8,6 +8,7 @@ import { failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
 import Button from '../../../../components/common/Button';
 import CustomTable from '../../../../components/common/Table';
+import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 function AdminViewCategories() {
     const history = useHistory();
@@ -50,7 +51,7 @@ function AdminViewCategories() {
                     <Col lg={{ span: 10, offset: '1' }}>
                         <HeaderBar title="Categories List" noPosts={true} />
                         <div className='d-flex justify-content-between mb-2'>
-                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><FaLongArrowAltLeft /> Go Back</p>
                             <Button type="button" onClick={() => history.push("/admin/categories/add")}>Add Category</Button>
                         </div>
                         <div>

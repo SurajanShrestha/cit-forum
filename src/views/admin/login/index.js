@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { Container, Row, Col } from "react-bootstrap";
@@ -10,6 +10,7 @@ import { loginUserValidationSchema } from "../../../validations/loginUser.valida
 import { setUser } from "../../../storage";
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const initialValues = {
     email: "",
@@ -18,6 +19,7 @@ const initialValues = {
 
 function AdminLogin() {
     const history = useHistory();
+    const [showPw, setShowPw] = useState(false);
 
     const { mutate: loginUser, data: loginData, error: loginError, isLoading: isLoggingIn, isSuccess: isLoginSuccess } = useMutation((loginCred) => {
         return http().post('/users/login/admin', loginCred);
@@ -53,7 +55,18 @@ function AdminLogin() {
                                 return (
                                     <Form>
                                         <Input name="email" label="Email" type="email" placeholder="Enter your email" />
-                                        <Input name="password" label="Password" type="password" placeholder="Enter your password" />
+                                        <div className="pw-box">
+                                            {showPw ?
+                                                <>
+                                                    <FaEye className="see-pw-icon" onClick={() => setShowPw(false)} />
+                                                    <Input name="password" label="Password" type="text" placeholder="Enter your password" />
+                                                </> :
+                                                <>
+                                                    <FaEyeSlash className="see-pw-icon" onClick={() => setShowPw(true)} />
+                                                    <Input name="password" label="Password" type="password" placeholder="Enter your password" />
+                                                </>
+                                            }
+                                        </div>
                                         <div className="btn-container">
                                             <Button type="submit" loading={isLoggingIn} disabled={!dirty}>Login</Button>
                                         </div>

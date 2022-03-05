@@ -1,9 +1,10 @@
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function index() {
     return (
         <div className="pagination">
-            <Link to="/" className="action-btn"><i class="fa fa-angle-left" aria-hidden="true"></i></Link>
+            <Link to="/" className="action-btn"><FaAngleLeft /></Link>
             <ul className="page-list">
                 <span className="page-label">Page: </span>
                 <Link to="/">
@@ -20,7 +21,7 @@ function index() {
                     <li className="page-number">10</li>
                 </Link>
             </ul>
-            <Link to="/" className="action-btn"><i class="fa fa-angle-right" aria-hidden="true"></i></Link>
+            <Link to="/" className="action-btn"><FaAngleRight /></Link>
         </div>
     );
 }

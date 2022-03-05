@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
 import { Container, Row, Col } from "react-bootstrap";
@@ -10,6 +10,7 @@ import { registerUserValidationSchema } from "../../validations/registerUser.val
 import Button from "../../components/common/Button";
 import Input from "../../components/common/Input";
 import Select from "../../components/common/Select";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const initialValues = {
     email: "",
@@ -24,6 +25,8 @@ const initialValues = {
 
 function Register() {
     const history = useHistory();
+    const [showPw1, setShowPw1] = useState(false);
+    const [showPw2, setShowPw2] = useState(false);
 
     const { mutate: registerUser, error: registerError, isLoading: isRegistering, isSuccess: isRegisterSuccess } = useMutation((registerCred) => {
         return http().post('/users', registerCred);
@@ -74,8 +77,30 @@ function Register() {
                                             <option value="other">Other</option>
                                         </Select>
                                         <Input name="contact" label="Contact" type="tel" placeholder="Enter your phone number" />
-                                        <Input name="password" label="Password" type="password" placeholder="Enter your password" />
-                                        <Input name="confirmedPassword" label="Confirm Password" type="password" placeholder="Confirm your password" />
+                                        <div className="pw-box">
+                                            {showPw1 ?
+                                                <>
+                                                    <FaEye className="see-pw-icon" onClick={() => setShowPw1(false)} />
+                                                    <Input name="password" label="Password" type="text" placeholder="Enter your password" />
+                                                </> :
+                                                <>
+                                                    <FaEyeSlash className="see-pw-icon" onClick={() => setShowPw1(true)} />
+                                                    <Input name="password" label="Password" type="password" placeholder="Enter your password" />
+                                                </>
+                                            }
+                                        </div>
+                                        <div className="pw-box">
+                                            {showPw2 ?
+                                                <>
+                                                    <FaEye className="see-pw-icon" onClick={() => setShowPw2(false)} />
+                                                    <Input name="confirmedPassword" label="Confirm Password" type="text" placeholder="Confirm your password" />
+                                                </> :
+                                                <>
+                                                    <FaEyeSlash className="see-pw-icon" onClick={() => setShowPw2(true)} />
+                                                    <Input name="confirmedPassword" label="Confirm Password" type="password" placeholder="Confirm your password" />
+                                                </>
+                                            }
+                                        </div>
                                         <div className="btn-container">
                                             <Button type="submit" loading={isRegistering} disabled={!dirty}>Register</Button>
                                         </div>

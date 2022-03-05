@@ -9,6 +9,7 @@ import { successToast, failureToast } from "../../../../components/common/Toast"
 import { createCategoryValidationSchema } from "../../../../validations/createCategory.validation";
 import Button from "../../../../components/common/Button";
 import Input from "../../../../components/common/Input";
+import { FaEye, FaLongArrowAltLeft } from "react-icons/fa";
 
 const initialValues = {
     name: "",
@@ -43,7 +44,7 @@ function AdminAddCategory() {
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">
                         <p className="form-heading">Add a Category</p>
                         <div className="w-100 d-flex justify-content-end">
-                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><FaLongArrowAltLeft /> Go Back</p>
                         </div>
                         <Formik
                             initialValues={initialValues}
@@ -63,7 +64,7 @@ function AdminAddCategory() {
                             }}
                         </Formik>
                         <p className="note">
-                            <Link to="/admin/categories/view" className="clickable"><i class="fa fa-eye" aria-hidden="true"></i> View Categories</Link>
+                            <Link to="/admin/categories/view" className="clickable"><FaEye /> View Categories</Link>
                         </p>
                     </Col>
                 </Row>

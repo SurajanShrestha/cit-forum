@@ -3,6 +3,8 @@ import { useHistory, Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import Layout from '../layout';
 import { getUser } from "../../storage";
+import { FaBook, FaComments, FaSitemap, FaUsers, FaUserSecret } from 'react-icons/fa';
+import { MdTextSnippet } from 'react-icons/md'
 
 function AdminPanel() {
     const history = useHistory();
@@ -31,7 +33,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-users" aria-hidden="true"></i>
+                                                    <FaUsers className="icon" />
                                                     <p className="font-md">Users</p>
                                                 </div>
                                                 <div className="menu">
@@ -49,7 +51,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-user-secret" aria-hidden="true"></i>
+                                                    <FaUserSecret className="icon" />
                                                     <p className="font-md dash-title">Roles</p>
                                                 </div>
                                                 <div className="menu">
@@ -64,7 +66,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-sitemap" aria-hidden="true"></i>
+                                                    <FaSitemap className="icon" />
                                                     <p className="font-md dash-title">Categories</p>
                                                 </div>
                                                 <div className="menu">
@@ -82,7 +84,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-book" aria-hidden="true"></i>
+                                                    <FaBook className="icon" />
                                                     <p className="font-md dash-title">Topics</p>
                                                 </div>
                                                 <div className="menu">
@@ -100,7 +102,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-pencil-square" aria-hidden="true"></i>
+                                                    <MdTextSnippet className='icon' />
                                                     <p className="font-md dash-title">Posts</p>
                                                 </div>
                                                 <div className="menu">
@@ -118,7 +120,7 @@ function AdminPanel() {
                                         <Col lg={{ span: 4 }} xs={{ span: 6 }} className="d-flex justify-content-center">
                                             <div className="dashboard-box">
                                                 <div className="heading">
-                                                    <i className="fa fa-comments" aria-hidden="true"></i>
+                                                    <FaComments className="icon" />
                                                     <p className="font-md dash-title">Replies</p>
                                                 </div>
                                                 <div className="menu">

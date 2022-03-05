@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useQueryClient, useQuery, useMutation } from 'react-query';
+import {
+    FaRegCalendarCheck,
+    FaAngleUp,
+    FaAngleDown,
+} from 'react-icons/fa';
 import { Formik, Form } from 'formik';
 import { http } from '../../../services/httpHelper';
 import { successToast, failureToast } from '../Toast';
@@ -111,14 +116,14 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
         }
     }, [yesDelete]);
 
-    useEffect(()=>{
-        if(isSuccessDeletePost){
+    useEffect(() => {
+        if (isSuccessDeletePost) {
             successToast('Post successfully deleted');
         }
-        if(isErrorDeletePost){
+        if (isErrorDeletePost) {
             failureToast('Failed to delete post');
         }
-    },[isErrorDeletePost, isSuccessDeletePost]);
+    }, [isErrorDeletePost, isSuccessDeletePost]);
 
 
     const handleCreateReply = () => {
@@ -176,8 +181,8 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
                         <p className="userName">{userName}</p>
                     </Link>
                     <div className="date">
-                        <i className="f-sm fa fa-calendar-check-o" aria-hidden="true"></i>
-                        <small className="f-xs">{postedDate}</small>
+                        <FaRegCalendarCheck className='f-sm grayText' />
+                        <small className="f-xs ms-1">{postedDate}</small>
                     </div>
                 </div>
                 {showEditPostField ?
@@ -210,7 +215,12 @@ function Post({ id, userId, userName, userAvatar, postedDate, answer, /* totalLi
                         totalReplies === 0 ?
                             null :
                             <div className="action">
-                                <small className="view-replies f-sm" title="View Replies" onClick={() => setOpenReplies(!openReplies)}>{totalReplies || "0"} Replies&nbsp;<i class={openReplies ? "fa fa-angle-up" : "fa fa-angle-down"} aria-hidden="true"></i></small>
+                                <small className="view-replies f-sm" title="View Replies" onClick={() => setOpenReplies(!openReplies)}>{totalReplies || "0"} Replies&nbsp;
+                                    {openReplies ?
+                                        <FaAngleUp /> :
+                                        <FaAngleDown />
+                                    }
+                                </small>
                             </div>
                     }
                     {!showReplyField && !showEditPostField ?

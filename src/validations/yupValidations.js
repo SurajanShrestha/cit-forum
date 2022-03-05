@@ -79,8 +79,8 @@ export const NewPasswordValidation = () => {
     return Yup.string()
         .required('New Password is required')
         .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            'Password must be minimum of eight characters, with at least one uppercase letter, one lowercase letter, one number and one special character'
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+            'Password must be minimum of six characters, with at least one uppercase letter, one lowercase letter, one number and one special character'
         )
 }
 
@@ -89,8 +89,8 @@ export const ConfirmNewPassword = () => {
         .required('Confirmed Password is required')
         .oneOf([Yup.ref('newPassword')], 'Passwords do not match')
         .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            'Password must be minimum of eight characters, with at least one uppercase letter, one lowercase letter, one number and one special character'
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+            'Password must be minimum of six characters, with at least one uppercase letter, one lowercase letter, one number and one special character'
         )
 }
 

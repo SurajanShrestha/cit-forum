@@ -10,6 +10,7 @@ import { registerUserByAdminValidationSchema } from "../../../../validations/reg
 import Button from "../../../../components/common/Button";
 import Input from "../../../../components/common/Input";
 import Select from "../../../../components/common/Select";
+import { FaEye, FaLongArrowAltLeft } from "react-icons/fa";
 
 const initialValues = {
     email: "",
@@ -52,7 +53,7 @@ function AdminAddUser() {
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">
                         <p className="form-heading">Add a User</p>
                         <div className="w-100 d-flex justify-content-end">
-                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <p className="clickable f-sm greenText" onClick={() => history.goBack()}><FaLongArrowAltLeft /> Go Back</p>
                         </div>
                         <Formik
                             initialValues={initialValues}
@@ -86,7 +87,7 @@ function AdminAddUser() {
                             }}
                         </Formik>
                         <p className="note">
-                            <Link to="/admin/users/view" className="clickable"><i class="fa fa-eye" aria-hidden="true"></i> View Users</Link>
+                            <Link to="/admin/users/view" className="clickable"><FaEye /> View Users</Link>
                         </p>
                     </Col>
                 </Row>

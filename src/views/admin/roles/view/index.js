@@ -7,6 +7,7 @@ import { http } from "../../../../services/httpHelper";
 import { failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
 import CustomTable from '../../../../components/common/Table';
+import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 function AdminViewRoles() {
     const history = useHistory();
@@ -38,7 +39,7 @@ function AdminViewRoles() {
                     <Col lg={{ span: 10, offset: '1' }}>
                         <HeaderBar title="Roles List" noPosts={true} />
                         <div className='d-flex justify-content-between mb-2'>
-                            <p className="clickable f-sm greenText" onClick={() => history.push("/admin")}><i className='fa fa-long-arrow-left'></i> Go Back</p>
+                            <p className="clickable f-sm greenText" onClick={() => history.push("/admin")}><FaLongArrowAltLeft /> Go Back</p>
                         </div>
                         <div>
                             <CustomTable

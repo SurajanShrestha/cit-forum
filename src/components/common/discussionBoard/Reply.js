@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useQueryClient, useQuery, useMutation } from 'react-query';
+import { FaRegCalendarCheck } from 'react-icons/fa';
 import { Formik, Form } from 'formik';
 import { http } from '../../../services/httpHelper';
 import { successToast, failureToast } from '../Toast';
@@ -95,15 +96,15 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
         }
     }, [showEditField]);
 
-    useEffect(()=>{
-        if(isUpdateSuccess){
+    useEffect(() => {
+        if (isUpdateSuccess) {
             successToast("Reply successfully updated.");
             setShowEditField(false);
         }
-        if(updateError){
+        if (updateError) {
             failureToast(updateError?.response?.data?.message || "Error updating post");
         }
-    },[updateError, isUpdateSuccess]);
+    }, [updateError, isUpdateSuccess]);
 
     useEffect(() => {
         if (yesDelete) {
@@ -112,14 +113,14 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
         }
     }, [yesDelete]);
 
-    useEffect(()=>{
-        if(isSuccessDeleteReply){
+    useEffect(() => {
+        if (isSuccessDeleteReply) {
             successToast('Reply successfully deleted');
         }
-        if(isErrorDeleteReply){
+        if (isErrorDeleteReply) {
             failureToast('Failed to delete reply');
         }
-    },[isErrorDeleteReply, isSuccessDeleteReply]);
+    }, [isErrorDeleteReply, isSuccessDeleteReply]);
 
     const handleCreateReplyTo = () => {
         if (getUser()) {
@@ -176,8 +177,8 @@ function Reply({ id, postId, replyToId, userName, userId, userAvatar, postedDate
                         <p className="userName">{userName}</p>
                     </Link>
                     <div className="date">
-                        <i className="f-sm fa fa-calendar-check-o" aria-hidden="true"></i>
-                        <small className="f-xs">{postedDate}</small>
+                        <FaRegCalendarCheck className='f-sm' />
+                        <small className="f-xs ms-1">{postedDate}</small>
                     </div>
                 </div>
                 {

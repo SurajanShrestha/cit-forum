@@ -376,8 +376,9 @@ a:hover {
   margin-right: 3px;
 }
 .post .postContent .userAnswer .replyTo::before {
-  font-family: FontAwesome;
-  content: "\f1fa";
+  /* font-family: FontAwesome;
+  content: "\f1fa"; */
+  content: "@";
   padding-right: 3px;
 }
 .post .postContent .userAnswer a {
@@ -522,11 +523,11 @@ a:hover {
   align-items: center;
 }
 
-.dashboard-box i {
+.dashboard-box .icon {
   padding-right: 6px;
   border-right: 1px solid #a8cf54;
   margin-right: 6px;
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .dashboard-box p {
@@ -570,7 +571,7 @@ table tbody tr  {
 .admin-action-icon {
   cursor: pointer;
   padding: 4px 6px;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 .admin-action-icon:hover {
@@ -582,6 +583,25 @@ table tbody tr  {
   border-radius: 0px !important;
   border: none !important;
   background-color: transparent !important;
+}
+
+.custom-modal .modal-header .sr-only {
+  display: none;
+}
+
+.pw-box{
+  position: relative;
+}
+
+.pw-box .see-pw-icon {
+  position: absolute;
+  top: 34px;
+  right: 10px;
+}
+
+.pw-box .see-pw-icon:hover {
+  cursor: pointer;
+  color: #a8cf54;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -41,8 +41,11 @@ function AdminUserAccount() {
                                     userName={myProfileData?.data?.name}
                                     userEmail={myProfileData?.data?.email}
                                     userAvatar={process.env.PUBLIC_URL + "/images/userAvatars/uAv-02.jpg"}
+                                    userRole={myProfileData?.data?.RoleId === 1 ? 'Admin' : 'User'}
                                     avatarWidth={90}
                                     editable={true}
+                                    updateUser={true}
+                                    updateUserRoute={`/admin/userAccount/update/${myProfileData?.data?.id}`}
                                     totalPosts={myProfileData?.data?.Posts.length}
                                 />
                                 <List data={myProfileData?.data?.Topics} deletable={true} editable={true} />

@@ -3,6 +3,7 @@ import { Table, Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { successToast, failureToast } from "../Toast";
 import Popup from '../Popup';
+import { FaPencilAlt, FaRegTrashAlt } from 'react-icons/fa';
 
 function CustomTable({
     tableName = 'data',
@@ -64,17 +65,19 @@ function CustomTable({
                                             {Object.keys(tdata).map((oKey, index) => <td key={index} style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} title={tdata[oKey]}>{tdata[oKey]}</td>)}
                                             {deleteFunc || updateRoute !== "" ?
                                                 <td>
-                                                    {isDeleting ?
-                                                        <Spinner animation='border' size='sm' /> :
-                                                        <i className="fa fa-trash-o admin-action-icon" aria-hidden="true" title="Delete" onClick={() => {
-                                                            setShow(true);
-                                                            setDeleteId(tdata?.id);
-                                                        }}></i>
-                                                    }
-                                                    {updateRoute !== "" ?
-                                                        <i className="fa fa-pencil admin-action-icon" aria-hidden="true" title="Edit" onClick={() => history.push(`${updateRoute}/${tdata?.id}`)}></i> :
-                                                        null
-                                                    }
+                                                    <div className="bg-dark mb-0 d-flex">
+                                                        {isDeleting ?
+                                                            <Spinner animation='border' size='sm' /> :
+                                                            <FaRegTrashAlt className='admin-action-icon' title='Delete' onClick={() => {
+                                                                setShow(true);
+                                                                setDeleteId(tdata?.id);
+                                                            }} />
+                                                        }
+                                                        {updateRoute !== "" ?
+                                                            <FaPencilAlt className="fa fa-pencil admin-action-icon" title="Edit" onClick={() => history.push(`${updateRoute}/${tdata?.id}`)} /> :
+                                                            null
+                                                        }
+                                                    </div>
                                                 </td> :
                                                 null
                                             }

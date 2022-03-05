@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useQueryClient, useMutation } from 'react-query';
 import { Row, Col, Spinner } from 'react-bootstrap';
+import { FaPencilAlt, FaRegCalendarCheck, FaRegTrashAlt } from 'react-icons/fa';
 import { http } from '../../../services/httpHelper';
 import { successToast, failureToast } from '../Toast';
 import Popup from '../Popup';
@@ -71,28 +72,40 @@ function ListItem({
                 <Col xs={6}>
                     <Link to={`/topic/${id}`} className="greenText f-sm">{topic}</Link>
                     <div className="d-flex align-items-center">
-                        <i className="f-sm grayText fa fa-calendar-check-o" aria-hidden="true"></i>
-                        <small className="f-xs grayText">&emsp;{createdDate}</small>
+                        <FaRegCalendarCheck className='f-sm grayText' />
+                        <small className="f-xs grayText ms-1">{createdDate}</small>
                         {deletable ?
                             isDeletingTopic ?
                                 <Spinner animation="border" size="sm" /> :
-                                <i
-                                    onClick={handleShow}
-                                    className="f-md grayText fa fa-trash-o ms-2 clickable"
-                                    aria-hidden="true"
+                                <FaRegTrashAlt
+                                    style={{ fontSize: '20px' }}
+                                    className="grayText ms-2 clickable"
                                     title="Delete"
-                                >
-                                </i> :
+                                    onClick={handleShow}
+                                /> :
+                            // <i
+                            //     onClick={handleShow}
+                            //     className="f-md grayText fa fa-trash-o ms-2 clickable"
+                            //     aria-hidden="true"
+                            //     title="Delete"
+                            // >
+                            // </i> :
                             null
                         }
                         {editable ?
-                            <i
+                            <FaPencilAlt
+                                style={{ fontSize: '20px' }}
                                 onClick={() => history.push(`/updateTopic/${id}`)}
-                                className="f-md grayText fa fa-pencil ms-2 clickable"
-                                aria-hidden="true"
+                                className="grayText ms-1 clickable"
                                 title="Edit"
-                            >
-                            </i> :
+                            /> :
+                            // <i
+                            //     onClick={() => history.push(`/updateTopic/${id}`)}
+                            //     className="f-md grayText fa fa-pencil ms-2 clickable"
+                            //     aria-hidden="true"
+                            //     title="Edit"
+                            // >
+                            // </i> :
                             null
                         }
                     </div>
