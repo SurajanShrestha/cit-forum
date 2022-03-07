@@ -5,7 +5,7 @@ function CategoryBoard({ data }) {
         <div class="cat-board">
             <p className="heading">Browse Categories</p>
             <ul className="list-wrapper">
-                <Link to="/topic">
+                <Link to="#">
                     <li className="list active">All Categories</li>
                 </Link>
                 {data ?

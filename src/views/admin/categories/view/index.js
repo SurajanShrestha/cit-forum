@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useQueryClient, useQuery, useMutation } from 'react-query';
 import Layout from '../../../layout';
 import { http } from "../../../../services/httpHelper";
+import { getUser } from '../../../../storage';
 import { failureToast } from "../../../../components/common/Toast";
 import { HeaderBar } from '../../../../components';
 import Button from '../../../../components/common/Button';
@@ -28,6 +29,17 @@ function AdminViewCategories() {
         }
     }
     );
+
+    useEffect(() => {
+        if (getUser()) {
+            // Even if checking user role is done by the backend, we're still making sure that no non-admin users can stay in this page.
+            if (getUser()?.roleId !== 1) {
+                history.replace('/admin/login');
+            }
+        } else {
+            history.replace('/admin/login');
+        }
+    }, []);
 
     useEffect(() => {
         if (errorCatData) {

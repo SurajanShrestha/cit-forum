@@ -38,9 +38,20 @@ function AdminUpdateUserPassword() {
         });
     };
 
+    // useEffect(() => {
+    //     if (!getUser()) {
+    //         history.replace("/");
+    //     }
+    // }, []);
+
     useEffect(() => {
-        if (!getUser()) {
-            history.replace("/");
+        if (getUser()) {
+            // Even if checking user role is done by the backend, we're still making sure that no non-admin users can stay in this page.
+            if (getUser()?.roleId !== 1) {
+                history.replace('/admin/login');
+            }
+        } else {
+            history.replace('/admin/login');
         }
     }, []);
 
@@ -56,7 +67,7 @@ function AdminUpdateUserPassword() {
     }, [isUpdateSuccess, updateError]);
 
     return (
-        <Layout>
+        <Layout forAdminPanel={true} noFooter={true}>
             <Container>
                 <Row className="px-3">
                     <Col lg={{ span: 6, offset: 3 }} className="single-form">
